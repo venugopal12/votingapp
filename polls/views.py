@@ -1,5 +1,8 @@
 from django.http import HttpResponse
+from django.views.generic import View
 
 
-def home(response):
-    return HttpResponse('Hello world')
+class HomeView(View):
+
+    def get(self, response):
+        return HttpResponse('Hello world')
