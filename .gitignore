@@ -1,0 +1,10 @@
+# python related
+venv
+**/__pycache__
+.vscode
+.cache
+
+geckodriver.log
+
+# ignore my personal notes file
+private_notes.md
