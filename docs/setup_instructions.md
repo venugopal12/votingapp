@@ -18,6 +18,13 @@ python3.6 -m venv venv
 pip install -r requirements.txt
 ```
 
+## Migrate database
+```
+votingsite$ mkdir ../database
+votingsite$ python manage.py makemigrations
+votingsite$ python manage.py migrate
+```
+
 ## Download geckodriver
 * not yet required *
 Only required if you are running the Integration Tests
