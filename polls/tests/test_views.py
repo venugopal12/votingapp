@@ -8,4 +8,4 @@ class HomeTest(TestCase):
 
     def test_home_page_using_base_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'home.html')
