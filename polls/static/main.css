@@ -1,0 +1,18 @@
+/* Show it is fixed to the top */
+body {
+    padding-top: 4.5rem;
+}
+
+main {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (max-width: 48em) {
+    /* Remove the padding we set earlier */
+    main {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
