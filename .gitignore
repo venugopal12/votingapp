@@ -5,9 +5,6 @@ venv
 .cache
 .vagrant
 
-# temporarily ignore our local database directory
-database
-
 # ignore all log files
 *.log
 
