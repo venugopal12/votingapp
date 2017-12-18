@@ -10,3 +10,6 @@ venv
 
 # ignore my personal notes file
 private_notes.md
+
+# ignore real secrets file
+votingsite/secrets.py

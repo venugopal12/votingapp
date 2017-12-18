@@ -15,18 +15,26 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Load our secrets and app config from our ignored secrets file
+try:
+    from votingsite import secrets
+except ImportError as exc:
+    raise ImportError(
+        'Could not import Secrets file, make sure you have a secrets.py '
+        'in the votingsite folder'
+    ) from exc
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+SECRET_KEY = secrets.APP_SECRET_KEY
+DEBUG = secrets.APP_DEBUG
+ALLOWED_HOSTS = secrets.APP_ALLOWED_HOSTS
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h2wpzon2wmj@q2gtb7l%to4+njg%gqej8gw*h8rdfvm3hpo-ts'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
-
-
+EMAIL_USE_TLS = secrets.EMAIL_USE_TLS
+EMAIL_HOST = secrets.EMAIL_HOST
+EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
+EMAIL_PORT = secrets.EMAIL_PORT
+DEFAULT_FROM_EMAIL = secrets.EMAIL_DEFAULT_FROM
+MANAGERS = secrets.EMAIL_ADMINS
 # Application definition
 
 INSTALLED_APPS = [
