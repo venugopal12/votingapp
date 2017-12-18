@@ -5,11 +5,8 @@ venv
 .cache
 .vagrant
 
+private_notes.md
+votingsite/local_config.py
+
 # ignore all log files
 *.log
-
-# ignore my personal notes file
-private_notes.md
-
-# ignore real secrets file
-votingsite/secrets.py

@@ -15,26 +15,28 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Load our secrets and app config from our ignored secrets file
+# Load our secrets and app config from our ignored local config file
 try:
-    from votingsite import secrets
+    from votingsite import local_config
 except ImportError as exc:
     raise ImportError(
-        'Could not import Secrets file, make sure you have a secrets.py '
+        'Could not import local config file, make sure you have a secrets.py '
         'in the votingsite folder'
     ) from exc
 
-SECRET_KEY = secrets.APP_SECRET_KEY
-DEBUG = secrets.APP_DEBUG
-ALLOWED_HOSTS = secrets.APP_ALLOWED_HOSTS
+SECRET_KEY = local_config.APP_SECRET_KEY
+DEBUG = local_config.APP_DEBUG
+ALLOWED_HOSTS = local_config.APP_ALLOWED_HOSTS
 
-EMAIL_USE_TLS = secrets.EMAIL_USE_TLS
-EMAIL_HOST = secrets.EMAIL_HOST
-EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
-EMAIL_PORT = secrets.EMAIL_PORT
-DEFAULT_FROM_EMAIL = secrets.EMAIL_DEFAULT_FROM
-MANAGERS = secrets.EMAIL_ADMINS
+EMAIL_USE_TLS = local_config.EMAIL_USE_TLS
+EMAIL_HOST = local_config.EMAIL_HOST
+EMAIL_HOST_USER = local_config.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = local_config.EMAIL_HOST_PASSWORD
+EMAIL_PORT = local_config.EMAIL_PORT
+DEFAULT_FROM_EMAIL = local_config.EMAIL_DEFAULT_FROM
+MANAGERS = local_config.EMAIL_ADMINS
+
+
 # Application definition
 
 INSTALLED_APPS = [
