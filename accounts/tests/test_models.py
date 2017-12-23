@@ -21,6 +21,10 @@ class UserModelTest(TestCase):
         request = self.client.request().wsgi_request
         login(request, user)  # should not raise
 
+    def test_get_email_root(self):
+        user = User.objects.create(email='mary@example.com')
+        self.assertEqual('mary', user.email_root)
+
 
 class TokenModelTest(TestCase):
 

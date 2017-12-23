@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import auth
 import random
 import string
 
@@ -7,7 +8,7 @@ import string
 UID_CHARS = string.ascii_letters + string.digits + '_-'
 UID_LENGTH = 32
 
-# auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
+auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
 
 
 class User(models.Model):
@@ -17,6 +18,10 @@ class User(models.Model):
     USERNAME_FIELD = 'email'
     is_anonymous = False
     is_authenticated = True
+
+    @property
+    def email_root(self):
+        return self.email.split('@')[0]
 
 
 class Token(models.Model):

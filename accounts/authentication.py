@@ -6,8 +6,8 @@ class PasswordlessAuthenticationBackend:
     def authenticate(self, uid):
         try:
             token = Token.objects.get(uid=uid)
-            obj, created = User.objects.get_or_create(email=token.email)
-            return obj
+            user, created = User.objects.get_or_create(email=token.email)
+            return user
         except Token.DoesNotExist:
             return None
 
