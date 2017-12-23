@@ -43,11 +43,13 @@ class LoginTest(StaticLiveServerTestCase):
             self.fail('Email was not found')
         return email.body
 
+    @wait
     def wait_to_be_logged_in(self, email):
-        self.fail('Can not log in yet')
+        self.browser.find_element_by_link_text('Log out')
 
+    @wait
     def wait_to_be_logged_out(self, email):
-        self.fail('Can not log out yet')
+        self.browser.find_element_by_id('email-input')
 
     def test_get_email_link_and_authenticate(self):
         self.browser.get(self.live_server_url)

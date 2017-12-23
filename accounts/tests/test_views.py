@@ -7,9 +7,11 @@ TEST_EMAIL = 'mary@miniscruff.com'
 
 class SendLoginEmailTests(TestCase):
 
+    send_login_email_url = '/account/send_login_email'
+
     def test_redirects_to_home(self):
         response = self.client.post(
-            '/account/send_login_email',
+            self.send_login_email_url,
             {'email': TEST_EMAIL}
         )
         self.assertRedirects(response, '/')
@@ -17,7 +19,7 @@ class SendLoginEmailTests(TestCase):
     @patch('accounts.views.send_mail')
     def test_should_send_email(self, mock_send_mail):
         self.client.post(
-            '/account/send_login_email',
+            self.send_login_email_url,
             {'email': TEST_EMAIL}
         )
 
@@ -28,7 +30,7 @@ class SendLoginEmailTests(TestCase):
 
     def test_adds_success_message(self):
         response = self.client.post(
-            '/account/send_login_email',
+            self.send_login_email_url,
             {'email': TEST_EMAIL},
             follow=True
         )
@@ -43,7 +45,7 @@ class SendLoginEmailTests(TestCase):
     @patch('accounts.views.send_mail')
     def test_sends_token_link(self, mock_send_mail):
         self.client.post(
-            '/account/send_login_email',
+            self.send_login_email_url,
             {'email': TEST_EMAIL}
         )
 
@@ -53,3 +55,15 @@ class SendLoginEmailTests(TestCase):
         expected_token_ending = f'?token={token.uid}'
         (subject, body, from_email, to_list), kwargs = mock_send_mail.call_args
         self.assertIn(expected_token_ending, body)
+
+
+class LoginTests(TestCase):
+
+    login_url = '/account/login'
+
+    def test_redirects_to_home(self):
+        response = self.client.get(
+            self.login_url,
+            {'email': TEST_EMAIL}
+        )
+        self.assertRedirects(response, '/')
