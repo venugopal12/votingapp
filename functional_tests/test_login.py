@@ -44,11 +44,11 @@ class LoginTest(StaticLiveServerTestCase):
         return email.body
 
     @wait
-    def wait_to_be_logged_in(self, email):
-        self.browser.find_element_by_link_text('Log out')
+    def wait_to_be_logged_in(self):
+        self.browser.find_element_by_id('logout-button')
 
     @wait
-    def wait_to_be_logged_out(self, email):
+    def wait_to_be_logged_out(self):
         self.browser.find_element_by_id('email-input')
 
     def test_get_email_link_and_authenticate(self):
@@ -78,8 +78,8 @@ class LoginTest(StaticLiveServerTestCase):
         self.browser.get(url)
 
         #  5. She is authenticated now and returns to the home page
-        self.wait_to_be_logged_in(TEST_EMAIL)
+        self.wait_to_be_logged_in()
 
         #  6. She now logs out and returns back to the original page
-        self.browser.find_element_by_link_text('Log out').click()
-        self.wait_to_be_logged_out(TEST_EMAIL)
+        self.browser.find_element_by_link_text('Logout').click()
+        self.wait_to_be_logged_out()
