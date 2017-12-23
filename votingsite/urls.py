@@ -16,7 +16,9 @@ Including another URLconf
 from django.urls import path, include
 
 from polls import urls as polls_urls
+from accounts import urls as accounts_urls
 
 urlpatterns = [
-    path('', include(polls_urls))
+    path('', include(polls_urls)),
+    path('account/', include(accounts_urls)),
 ]
