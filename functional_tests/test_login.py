@@ -1,68 +1,30 @@
-from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core import mail
+from functional_tests.base import FunctionalTest
 
-import time
 import re
 
-MAX_WAIT = 10
-WAIT_DELAY = 0.2
-TEST_EMAIL = 'mary@example.com'
 
-
-class LoginTest(StaticLiveServerTestCase):
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-
-    def tearDown(self):
-        time.sleep(1)
-        self.browser.quit()
-
-    def wait(fn):
-        def modified_fn(*args, **kwargs):
-            start_time = time.time()
-            while True:
-                try:
-                    return fn(*args, **kwargs)
-                except (AssertionError, WebDriverException) as e:
-                    if time.time() - start_time > MAX_WAIT:
-                        raise e
-                    time.sleep(WAIT_DELAY)
-        return modified_fn
-
-    @wait
-    def wait_for(self, fn):
-        return fn()
+class LoginTest(FunctionalTest):
 
     def wait_for_email_body(self):
         email = mail.outbox[0]
-        if email is None:
-            self.fail('Email was not found')
         return email.body
 
-    @wait
-    def wait_to_be_logged_in(self):
-        self.browser.find_element_by_id('logout-button')
-
-    @wait
-    def wait_to_be_logged_out(self):
-        self.browser.find_element_by_id('email-input')
-
     def test_get_email_link_and_authenticate(self):
+        test_email = 'mary@example.com'
+
         self.browser.get(self.live_server_url)
 
         #  1. Mary visits the home page and types her email into the field
-        email_input = self.browser.find_element_by_id('email-input')
-        email_input.send_keys(TEST_EMAIL)
+        email_input = self.browser.find_element_by_name('email')
+        email_input.send_keys(test_email)
         email_input.send_keys(Keys.ENTER)
 
         #  2. The home page loads again but with a message saying
         #     to check your email
         self.wait_for(lambda: self.assertIn(
-            f'Email sent to {TEST_EMAIL}',
+            f'Email sent to {test_email}',
             self.browser.find_element_by_tag_name('body').text
         ))
 
@@ -81,5 +43,5 @@ class LoginTest(StaticLiveServerTestCase):
         self.wait_to_be_logged_in()
 
         #  6. She now logs out and returns back to the original page
-        self.browser.find_element_by_link_text('Logout').click()
+        self.browser.find_element_by_name('logout-button').click()
         self.wait_to_be_logged_out()
