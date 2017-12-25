@@ -1,77 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Voting App</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        {% load static %}
-        <link rel="stylesheet" href="{% static "main.css" %}" />
-    </head>
-    <body>
-
-        <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">Voting</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="justify-content-end collapse navbar-collapse" id="navbarCollapse">
-                {% if user.email %}
-                <form class="form-inline mt-2 mt-md-0" method="POST" action="{% url 'logout' %}">
-                        <label class="text-light pr-3">Welcome {{ user.email_root }}</label>
-                        <button class="btn btn-outline-danger my-2 my-sm-0" id="logout-button" type="submit">Logout</button>
-                        {% csrf_token %}
-                    </form>
-                {% else %}
-                <form class="form-inline mt-2 mt-md-0" method="POST" action="{% url 'send_login_email' %}">
-                    <input class="form-control mr-sm-2" name="email" id="email-input" type="text" placeholder="Email" aria-label="Email">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-                    {% csrf_token %}
-                </form>
-                {% endif %}
-            </div>
-        </nav>
-
-        <main role="main">
-            
-            {% if messages %}
-            <section class="container">
-                {% for message in messages %}
-                <div class="alert alert-success text-center" role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            </section>
-            {% endif %}
-
-            <section class="jumbotron text-center">
-                <div class="container">
-                    <h1 class="jumbotron-heading">Voting app</h1>
-                    <p class="lead text-muted">Simple and easy to use public polls</p>
-                </div>
-            </section>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h4>Authentication</h4>
-                        <p>Passwordless authentication model so you don't have to remember another password.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <h4>Responsive design</h4>
-                        <p>Create, edit and vote on polls from your PC, phone or tablet.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <h4>Open source</h4>
-                        <p>MIT licensed open source project on github, <a href="https://github.com/miniscruff/votingapp">view here</a></p>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block jumbotron %}
+<h1 class="jumbotron-heading">Voting app</h1>
+<p class="lead text-muted">Simple and easy to use public polls</p>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <h4>Authentication</h4>
+            <p>Passwordless authentication model so you don't have to remember another password.</p>
+        </div>
+        <div class="col-lg-4">
+            <h4>Responsive design</h4>
+            <p>Create, edit and vote on polls from your PC, phone or tablet.</p>
+        </div>
+        <div class="col-lg-4">
+            <h4>Open source</h4>
+            <p>MIT licensed open source project on github, <a href="https://github.com/miniscruff/votingapp">view here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

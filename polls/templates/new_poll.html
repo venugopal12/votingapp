@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block jumbotron %}
+<h1 class="jumbotron-heading">New Poll</h1>
+{% endblock %}
+{% block content %}
+<form class="form-inline mt-2 mt-md-0" method="POST" action="{% url 'poll' %}">
+    <input class="form-control mr-sm-2" name="text" type="text" placeholder="Question" aria-label="Question">
+    <input class="form-control mr-sm-2" name="choices" type="text" placeholder="Choice 1" aria-label="Choice 1">
+    <input class="form-control mr-sm-2" name="choices" type="text" placeholder="Choice 2" aria-label="Choice 2">
+    <button class="btn btn-success" name="create-poll" type="submit">Create Poll</button>
+    {% csrf_token %}
+</form>
+{% endblock %}
