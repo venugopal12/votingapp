@@ -27,7 +27,8 @@ class NewPollView(View):
 class PollView(View):
 
     def get(self, request, uid):
-        return render(request, 'poll.html')
+        poll = Poll.objects.get(uid=uid)
+        return render(request, 'poll.html', {'poll': poll})
 
     def post(self, request):
         text = request.POST['text']

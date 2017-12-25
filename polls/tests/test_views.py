@@ -38,10 +38,28 @@ class NewPollTest(TestCase):
 
 class ViewPollGetTest(TestCase):
 
-    def test_poll_uses_poll_template(self):
+    def test_uses_poll_template(self):
         poll = Poll.objects.create(text='A')
         response = self.client.get(f'/poll/{poll.uid}')
         self.assertTemplateUsed(response, 'poll.html')
+
+    def test_displays_text_and_choices(self):
+        text = 'Would you like a cookie?'
+        choice_0 = 'Yes of course'
+        choice_1 = 'Not really, I am full'
+        poll = Poll.objects.create(text=text)
+        Choice.objects.create(text=choice_0, poll=poll)
+        Choice.objects.create(text=choice_1, poll=poll)
+        response = self.client.get(f'/poll/{poll.uid}')
+        self.assertContains(response, text)
+        self.assertContains(response, choice_0)
+        self.assertContains(response, choice_1)
+
+    def test_passes_in_correct_poll(self):
+        Poll.objects.create(text='some other poll')
+        poll = Poll.objects.create(text='my new poll')
+        response = self.client.get(f'/poll/{poll.uid}')
+        self.assertEqual(response.context['poll'], poll)
 
 
 class ViewPollPostTest(TestCase):
