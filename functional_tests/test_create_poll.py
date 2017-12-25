@@ -51,6 +51,8 @@ class CreatePollTest(FunctionalTest):
         # Then she clicks create
         self.browser.find_element_by_name('create-poll').click()
 
+        print(self.browser.find_element_by_tag_name('body').text)
+
         # She is then redirected to the poll page
         # Which displays her question and choices with a Vote button
         self.wait_for(
