@@ -1,5 +1,7 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from polls.models import Poll, Choice
 
 
 class HomeView(View):
@@ -13,6 +15,12 @@ class HomeView(View):
 class NewPollView(View):
 
     def get(self, request):
+        if not request.user.is_authenticated:
+            messages.error(
+                request,
+                'You need to be logged in to create a poll'
+            )
+            return redirect('/')
         return render(request, 'new_poll.html')
 
 
@@ -22,4 +30,10 @@ class PollView(View):
         return render(request, 'poll.html')
 
     def post(self, request):
-        return redirect('/')
+        text = request.POST['text']
+        poll = Poll.objects.create(text=text)
+
+        for choice in request.POST.getlist('choices'):
+            Choice.objects.create(text=choice, poll=poll)
+
+        return redirect(f'/poll/{poll.uid}')

@@ -38,7 +38,11 @@
             {% if messages %}
             <section class="container">
                 {% for message in messages %}
+                {% if message.tags == 'success' %}
                 <div class="alert alert-success text-center" role="alert">
+                {% else %}
+                <div class="alert alert-danger text-center" role="alert">
+                {% endif %}
                     {{ message }}
                 </div>
                 {% endfor %}
