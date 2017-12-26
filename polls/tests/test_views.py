@@ -55,6 +55,16 @@ class ViewPollGetTest(TestCase):
         self.assertContains(response, choice_0)
         self.assertContains(response, choice_1)
 
+    def test_choices_have_css_name_of_text(self):
+        choice_0 = 'Yes of course'
+        choice_1 = 'Not really, I am full'
+        poll = Poll.objects.create(text='Would you like a cookie?')
+        Choice.objects.create(text=choice_0, poll=poll)
+        Choice.objects.create(text=choice_1, poll=poll)
+        response = self.client.get(f'/poll/{poll.uid}')
+        self.assertContains(response, 'name="yes-of-course"')
+        self.assertContains(response, 'name="not-really-i-am-full"')
+
     def test_passes_in_correct_poll(self):
         Poll.objects.create(text='some other poll')
         poll = Poll.objects.create(text='my new poll')
