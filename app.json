@@ -31,8 +31,16 @@
   ],
   "environments": {
     "test": {
+      "formation": {
+        "quantity": 1,
+        "size": "performance-l"
+      },
+      "buildpacks": [
+        { "url": "https://github.com/heroku/heroku-buildpack-google-chrome"},
+        { "url": "https://github.com/heroku/heroku-buildpack-chromedriver"}
+      ],
       "scripts": {
-        "test": "python manage.py test polls accounts"
+        "test": "python manage.py test"
       }
     }
   }

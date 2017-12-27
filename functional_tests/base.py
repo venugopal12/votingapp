@@ -3,6 +3,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium import webdriver
 
 import time
+import os
 
 MAX_WAIT = 10
 WAIT_DELAY = 0.2
@@ -35,7 +36,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.find_element_by_name('email')
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        if 'CI' in os.environ:
+            options = webdriver.ChromeOptions()
+            options.set_headless()
+            options.binary_location = os.environ['GOOGLE_CHROME_SHIM']
+            self.browser = webdriver.Chrome(chrome_options=options)
+        else:
+            self.browser = webdriver.Firefox()
 
     def tearDown(self):
         self.browser.quit()
