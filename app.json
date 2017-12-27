@@ -32,11 +32,11 @@
   "environments": {
     "test": {
       "buildpacks": [
+        { "url": "https://github.com/heroku/heroku-buildpack-python"},
         { "url": "https://github.com/heroku/heroku-buildpack-google-chrome"},
         { "url": "https://github.com/heroku/heroku-buildpack-chromedriver"}
       ],
       "scripts": {
-        "test-setup": "pip install -r requirements.txt",
         "test": "python manage.py test"
       }
     }
