@@ -1,0 +1,32 @@
+{
+  "name": "Mini Vote",
+  "description": "",
+  "scripts": {
+    "postdeploy": "python manage.py migrate --noinput"
+  },
+  "env": {
+    "GMAIL_PASSWORD": {
+      "required": true
+    },
+    "GMAIL_USER": {
+      "required": true
+    },
+    "HEROKU": "1",
+    "SECRET_KEY": {
+      "generator": "secret"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
