@@ -28,5 +28,12 @@
     {
       "url": "heroku/python"
     }
-  ]
+  ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "python manage.py test polls accounts"
+      }
+    }
+  }
 }
