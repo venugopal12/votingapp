@@ -31,10 +31,6 @@
   ],
   "environments": {
     "test": {
-      "formation": {
-        "quantity": 1,
-        "size": "performance-l"
-      },
       "buildpacks": [
         { "url": "https://github.com/heroku/heroku-buildpack-google-chrome"},
         { "url": "https://github.com/heroku/heroku-buildpack-chromedriver"}
