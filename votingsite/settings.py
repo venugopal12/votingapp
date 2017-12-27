@@ -105,6 +105,24 @@ if 'HEROKU' in os.environ:
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
+elif 'TRAVIS' in os.environ:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    DEBUG = True
+    ALLOWED_HOSTS = []
+
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ['GMAIL_USER']
+    EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
+    EMAIL_PORT = 587
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
 else:
     # local settings
     from votingsite import local_config
