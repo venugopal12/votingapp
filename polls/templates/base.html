@@ -49,14 +49,12 @@
             </section>
             {% endif %}
 
-            <section class="jumbotron text-center">
-                <div class="container">
-                    {% block jumbotron %}
-                    {% endblock %}
-                </div>
+            <section class="jumbotron text-center container">
+                {% block jumbotron %}
+                {% endblock %}
             </section>
 
-            <div id="content">
+            <div id="content container">
                 {% block content %}
                 {% endblock %}
             </div>

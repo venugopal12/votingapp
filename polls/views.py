@@ -38,3 +38,22 @@ class PollView(View):
             Choice.objects.create(text=choice, poll=poll)
 
         return redirect(f'/poll/{poll.uid}')
+
+
+class ResultsView(View):
+
+    def get(self, request, uid):
+        poll = Poll.objects.get(uid=uid)
+        return render(request, 'results.html', {'poll': poll})
+
+
+class VoteView(View):
+
+    def post(self, request):
+        poll = Poll.objects.get(uid=request.POST['poll_uid'])
+
+        choice = Choice.objects.get(id=request.POST['choice_id'])
+        choice.votes += 1
+        choice.save()
+
+        return redirect(f'/poll/{poll.uid}/results')
