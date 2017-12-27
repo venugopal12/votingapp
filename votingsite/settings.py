@@ -15,27 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Load our secrets and app config from our ignored local config file
-try:
-    from votingsite import local_config
-except ImportError as exc:
-    raise ImportError(
-        'Could not import local config file, make sure you have a secrets.py '
-        'in the votingsite folder'
-    ) from exc
-
-SECRET_KEY = local_config.APP_SECRET_KEY
-DEBUG = local_config.APP_DEBUG
-ALLOWED_HOSTS = local_config.APP_ALLOWED_HOSTS
-
-EMAIL_USE_TLS = local_config.EMAIL_USE_TLS
-EMAIL_HOST = local_config.EMAIL_HOST
-EMAIL_HOST_USER = local_config.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = local_config.EMAIL_HOST_PASSWORD
-EMAIL_PORT = local_config.EMAIL_PORT
-DEFAULT_FROM_EMAIL = local_config.EMAIL_DEFAULT_FROM
-MANAGERS = local_config.EMAIL_ADMINS
-
 
 # Application definition
 
@@ -86,16 +65,9 @@ WSGI_APPLICATION = 'votingsite.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
-    }
-}
+
 
 # Internationalization
-# https://docs.djangoproject.com/en/2.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Los_Angeles'
 USE_I18N = True
@@ -103,5 +75,52 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
+
+DEFAULT_FROM_EMAIL = 'Admin <noreply@miniscruff.com>'
+MANAGERS = (
+    ('Ronnie', 'halfpint1170@gmail.com')
+)
+
+# Load secrets and environment specific settings based on which
+# environment we are currently in
+if 'HEROKU' in os.environ:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    DEBUG = False
+    ALLOWED_HOSTS = ['minivote.herokuapp.com']
+
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ['GMAIL_USER']
+    EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
+    EMAIL_PORT = 587
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+
+else:
+    # local settings
+    from votingsite import local_config
+    SECRET_KEY = local_config.APP_SECRET_KEY
+    DEBUG = local_config.APP_DEBUG
+    ALLOWED_HOSTS = local_config.APP_ALLOWED_HOSTS
+
+    EMAIL_USE_TLS = local_config.EMAIL_USE_TLS
+    EMAIL_HOST = local_config.EMAIL_HOST
+    EMAIL_HOST_USER = local_config.EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = local_config.EMAIL_HOST_PASSWORD
+    EMAIL_PORT = local_config.EMAIL_PORT
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
+        }
+    }
