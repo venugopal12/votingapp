@@ -3,16 +3,17 @@
 <h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
 {% endblock %}
 {% block content %}
-<form method="POST" action="#">
+<form method="POST" action="{% url 'vote' %}">
     <div class="btn-group btn-group-lg btn-group-vertical" data-toggle="buttons">
         {% for choice in poll.choice_set.all %}
         <label class="btn btn-primary btn-block">
-            <input type="radio" name="{{ choice.text|slugify }}" autocomplete="off">
+            <input type="radio" name="choice_id" value="{{ choice.id }}" autocomplete="off">
             {{ choice.text }}
         </label>
         {% endfor %}
-        <button class="btn btn-success" name="vote" type="submit">Vote</button>
     </div>
+    <input type="hidden" name="poll_uid" value="{{ poll.uid }}">
+    <button class="btn btn-success" name="vote" type="submit">Vote</button>
     {% csrf_token %}
 </form>
 {% endblock %}

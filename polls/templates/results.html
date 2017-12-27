@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block jumbotron %}
+<h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
+{% endblock %}
+{% block content %}
+{% for choice in poll.choice_set.all %}
+<div class="row">
+    <div class="col">
+        {{ choice.text }}
+    </div>
+    <div class="col-2" name="{{ choice.id }}-votes">
+        {{ choice.votes }}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
