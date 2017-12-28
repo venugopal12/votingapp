@@ -38,8 +38,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         if 'CI' in os.environ:
             options = webdriver.ChromeOptions()
-            options.set_headless()
-            options.binary_location = os.environ['GOOGLE_CHROME_SHIM']
+            options.binary_location = os.environ['GOOGLE_CHROME_BIN']
             self.browser = webdriver.Chrome(chrome_options=options)
         else:
             self.browser = webdriver.Firefox()
