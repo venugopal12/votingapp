@@ -39,6 +39,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         if 'CI' in os.environ:
             options = webdriver.ChromeOptions()
             options.binary_location = os.environ['GOOGLE_CHROME_BIN']
+            options.add_argument('no-sandbox')
+            options.add_argument('disable-gpu')
             self.browser = webdriver.Chrome(options=options)
         else:
             self.browser = webdriver.Firefox()
