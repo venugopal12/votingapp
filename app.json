@@ -31,9 +31,10 @@
   ],
   "environments": {
     "test": {
+      "stack": "cedar-14",
       "buildpacks": [
         { "url": "https://github.com/heroku/heroku-buildpack-python"},
-        { "url": "https://github.com/heroku/heroku-buildpack-google-chrome"},
+        { "url": "https://github.com/heroku/heroku-buildpack-xvfb-google-chrome"},
         { "url": "https://github.com/heroku/heroku-buildpack-chromedriver"}
       ],
       "scripts": {
