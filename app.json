@@ -31,14 +31,11 @@
   ],
   "environments": {
     "test": {
-      "stack": "cedar-14",
       "buildpacks": [
-        { "url": "https://github.com/heroku/heroku-buildpack-python"},
-        { "url": "https://github.com/heroku/heroku-buildpack-xvfb-google-chrome"},
-        { "url": "https://github.com/heroku/heroku-buildpack-chromedriver"}
+        { "url": "https://github.com/heroku/heroku-buildpack-python"}
       ],
       "scripts": {
-        "test": "python manage.py test"
+        "test": "python manage.py test polls accounts"
       }
     }
   }
