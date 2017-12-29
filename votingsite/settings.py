@@ -99,7 +99,7 @@ if 'CI' in os.environ:
 elif 'HEROKU' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = False
-    ALLOWED_HOSTS = ['minivote.herokuapp.com']
+    ALLOWED_HOSTS = ['minivote.herokuapp.com', 'minivotestaging.herokuapp.com']
 
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
