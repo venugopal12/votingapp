@@ -92,7 +92,17 @@ class LoginTests(TestCase):
         )
         message = list(response.context['messages'])[0]
         self.assertEqual(
-            f'Welcome mary!',
+            'Welcome mary!',
             message.message
         )
         self.assertEqual(message.tags, 'success')
+
+    def test_displays_error_on_failure(self, mock_auth):
+        mock_auth.authenticate.return_value = None
+        response = self.client.get('/account/login?uid=abcd1234', follow=True)
+        message = list(response.context['messages'])[0]
+        self.assertEqual(
+            'Unable to authenticate, please try again',
+            message.message
+        )
+        self.assertEqual(message.tags, 'error')

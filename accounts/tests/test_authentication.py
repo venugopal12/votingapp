@@ -40,3 +40,10 @@ class PasswordLessAuthenticationTest(TestCase):
         self.assertIsNone(
             PasswordlessAuthenticationBackend().get_user('a@b.com')
         )
+
+    def test_authenticate_removes_token_if_valid(self):
+        email = 'mary@example.com'
+        User.objects.create(email=email)
+        token = Token.objects.create(email=email)
+        PasswordlessAuthenticationBackend().authenticate(token.uid)
+        self.assertEqual(Token.objects.count(), 0)

@@ -37,4 +37,9 @@ class Login(View):
                 request,
                 f'Welcome {user.email_root}!'
             )
+        else:
+            messages.error(
+                request,
+                'Unable to authenticate, please try again'
+            )
         return redirect('/')
