@@ -5,6 +5,7 @@ Follow the [Setup instructions here](docs/setup_instructions.md)
 
 # Deploying
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 Then simply edit the required environment variables and it should work.
 
 # Quality
