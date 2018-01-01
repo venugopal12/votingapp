@@ -1,6 +1,6 @@
 {
-  "name": "Mini Vote",
-  "description": "",
+  "name": "Mini Votes",
+  "description": "A simple yet effective online polls web app using Django 2.0",
   "scripts": {
     "postdeploy": "python manage.py migrate --noinput"
   },
@@ -32,7 +32,7 @@
   "environments": {
     "test": {
       "buildpacks": [
-        { "url": "https://github.com/heroku/heroku-buildpack-python"}
+        {"url": "https://github.com/heroku/heroku-buildpack-python"}
       ],
       "scripts": {
         "test": "python manage.py test polls accounts"
