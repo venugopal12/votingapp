@@ -36,12 +36,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.find_element_by_name('email')
 
     def setUp(self):
-        if 'CI' in os.environ:
-            options = webdriver.ChromeOptions()
-            options.binary_location = os.environ['GOOGLE_CHROME_SHIM']
-            self.browser = webdriver.Chrome(options=options)
-        else:
-            self.browser = webdriver.Firefox()
+        self.browser = webdriver.Firefox()
 
     def tearDown(self):
         self.browser.quit()
