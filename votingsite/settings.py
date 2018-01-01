@@ -99,7 +99,7 @@ if 'CI' in os.environ:
 elif 'HEROKU' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = False
-    ALLOWED_HOSTS = ['minivote.herokuapp.com', 'minivotestaging.herokuapp.com']
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
@@ -133,6 +133,6 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }

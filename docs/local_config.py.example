@@ -7,5 +7,5 @@ EMAIL_PORT = 587
 
 # General app settings
 APP_SECRET_KEY = '50 random characters'
-APP_DEBUG = True  # or False for production
-APP_ALLOWED_HOSTS = []  # or the hostname for production
+APP_DEBUG = True
+APP_ALLOWED_HOSTS = []
