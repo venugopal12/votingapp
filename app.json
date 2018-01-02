@@ -14,7 +14,8 @@
     "HEROKU": "1",
     "SECRET_KEY": {
       "generator": "secret"
-    }
+    },
+    "ALLOWED_HOST": ".herokuapp.com"
   },
   "formation": {
     "web": {
