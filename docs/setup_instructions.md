@@ -15,7 +15,12 @@ python3.6 -m venv venv
 
 ## Install packages with pip
 ```
-pip install -r requirements.txt
+# if you just want to run the project without tests
+pip install -r requirements/common.txt
+# if you want to run the tests locally
+pip install -r requirements/test.txt
+# Note: the root requirements.txt file is for heroku and links
+# to requirements/deploy.txt
 ```
 
 ## Migrate database

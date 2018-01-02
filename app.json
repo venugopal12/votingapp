@@ -28,15 +28,5 @@
     {
       "url": "heroku/python"
     }
-  ],
-  "environments": {
-    "test": {
-      "buildpacks": [
-        {"url": "https://github.com/heroku/heroku-buildpack-python"}
-      ],
-      "scripts": {
-        "test": "python manage.py test polls accounts"
-      }
-    }
-  }
+  ]
 }
