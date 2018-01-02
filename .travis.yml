@@ -15,6 +15,6 @@ install:
 script:
   - flake8 .
   - coverage run manage.py test
-  - coverage report
+  - coverage report --skip-covered
 after_success:
   - coveralls

@@ -66,11 +66,11 @@ class ViewPollGetTest(TestCase):
         choice_1 = Choice.objects.create(text='Not really', poll=poll)
         response = self.client.get(f'/poll/{poll.uid}')
         self.assertContains(
-            response, 
+            response,
             f'name="choice_id" value="{choice_0.id}"'
         )
         self.assertContains(
-            response, 
+            response,
             f'name="choice_id" value="{choice_1.id}"'
         )
 
