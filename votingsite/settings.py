@@ -100,7 +100,7 @@ if 'CI' in os.environ:  # noqa
 elif 'HEROKU' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = False
-    ALLOWED_HOSTS = ['.herokuapp.com']
+    ALLOWED_HOSTS = ['.herokuapp.com', 'miniscruff.com']
 
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
