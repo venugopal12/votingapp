@@ -11,3 +11,4 @@ db.sqlite3
 
 # ignore all log files
 *.log
+\.coverage
