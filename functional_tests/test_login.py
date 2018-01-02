@@ -32,8 +32,6 @@ class LoginTest(FunctionalTest):
         email_body = self.wait_for_email_body()
         self.assertIn('Use this link to log in', email_body)
         url_search = re.search(r'http://.+/.+$', email_body)
-        if not url_search:
-            self.fail(f'could not find url in email body\n{email_body}')
 
         #  4. Mary then goes to the authentication link
         url = url_search.group(0)

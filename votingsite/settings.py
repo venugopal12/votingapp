@@ -78,7 +78,8 @@ MANAGERS = (
 
 # Load secrets and environment specific settings based on which
 # environment we are currently in
-if 'CI' in os.environ:
+# Note: The following is ignored by coverage reports.
+if 'CI' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = True
     ALLOWED_HOSTS = []
@@ -96,7 +97,7 @@ if 'CI' in os.environ:
         }
     }
 
-elif 'HEROKU' in os.environ:
+elif 'HEROKU' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = False
     ALLOWED_HOSTS = ['.herokuapp.com']
@@ -117,8 +118,7 @@ elif 'HEROKU' in os.environ:
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
-else:
-    # local settings
+else:  # noqa
     from votingsite import local_config
     SECRET_KEY = local_config.APP_SECRET_KEY
     DEBUG = local_config.APP_DEBUG
