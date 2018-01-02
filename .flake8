@@ -1,0 +1,7 @@
+[flake8]
+exclude = 
+    venv,
+    virtualenv,
+    */migrations/*,
+    *.pyc
+max-complexity = 10
