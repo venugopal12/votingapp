@@ -5,5 +5,5 @@ exclude_lines =
 [run]
 omit = 
     */migrations/*
-    venv/*
-    virtualenv/*
+    */venv/*
+    */virtualenv/*
