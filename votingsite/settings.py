@@ -108,6 +108,12 @@ elif 'HEROKU' in os.environ:  # noqa
     EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
     EMAIL_PORT = 587
 
+    # redirect all http to https
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
     import dj_database_url
