@@ -1,18 +1,21 @@
-/* Show it is fixed to the top */
 body {
-    padding-top: 4.5rem;
+    padding-top: 4rem;
+    background-color: rgb(218, 218, 218)
 }
 
-main {
-    padding-right: 2rem;
+form {
     padding-left: 2rem;
+    padding-right: 2rem;
 }
 
-/* Responsive: Portrait tablets and up */
 @media screen and (max-width: 48em) {
-    /* Remove the padding we set earlier */
-    main {
-        padding-right: 0;
-        padding-left: 0;
+    .container {
+        padding-right: 0; 
+        padding-left: 0; 
+    }
+
+    form {
+        padding-left: .5rem;
+        padding-right: .5rem;
     }
 }
