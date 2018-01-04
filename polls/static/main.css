@@ -1,11 +1,11 @@
 body {
-    background-color: rgb(22, 22, 22);
+    background-color: rgb(43, 43, 43);
     color: rgb(211, 211, 211);
 }
 
 nav {
     border-bottom-width: 2px;
-    border-color: rgb(53, 53, 53);
+    border-color: rgb(94, 94, 94);
     border-bottom-style: solid;
 }
 
@@ -17,12 +17,18 @@ main {
     /*bg-light rounded border border-dark p-3*/
     border-style: solid;
     border-width: 1px;
-    border-color: rgb(50, 50, 50);
+    border-color: rgb(43, 43, 43);
     padding: 1rem;
 }
 
 .choice-label {
-    width: 2rem;
+    width: 1.5rem;
+}
+
+@media (min-width: 48em) {
+    .container {
+        max-width: 46rem;
+    }
 }
 
 @media screen and (max-width: 48em) {
