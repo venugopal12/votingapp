@@ -1,8 +1,6 @@
 {% extends "base.html" %}
-{% block jumbotron %}
-<h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
-{% endblock %}
 {% block content %}
+<h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
 <form method="POST" action="{% url 'vote' %}">
     <div class="btn-group btn-group-lg btn-group-vertical" data-toggle="buttons">
         {% for choice in poll.choice_set.all %}

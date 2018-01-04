@@ -1,8 +1,6 @@
 {% extends "base.html" %}
-{% block jumbotron %}
-<h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
-{% endblock %}
 {% block content %}
+<h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
 {% for choice in poll.choice_set.all %}
 <div class="row">
     <div class="col">
