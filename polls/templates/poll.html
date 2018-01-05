@@ -6,7 +6,7 @@
     {% for choice in poll.choice_set.all %}
     <div class="vote-option">
         <input id="{{ choice.text }}-id" type="radio" name="choice_id" value="{{ choice.id }}" {% if forloop.first %}checked{% endif %}>
-        <label for="{{ choice.text }}-id">{{ choice.text }}</label>
+        <label for="{{ choice.text }}-id" name="choice_label">{{ choice.text }}</label>
     </div>
     {% endfor %}
     <input type="hidden" name="poll_uid" value="{{ poll.uid }}">

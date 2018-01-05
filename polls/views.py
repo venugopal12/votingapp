@@ -53,7 +53,6 @@ class VoteView(View):
         poll = Poll.objects.get(uid=request.POST['poll_uid'])
 
         choice = Choice.objects.get(id=request.POST['choice_id'])
-        choice.votes += 1
-        choice.save()
+        choice.vote()
 
         return redirect(f'/poll/{poll.uid}/results')

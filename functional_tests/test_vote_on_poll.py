@@ -15,9 +15,9 @@ class VoteOnPollTest(FunctionalTest):
 
         # each choice has a name with the text as a slug
         self.wait_for(lambda: self.browser.find_element_by_name('choice_id'))
-        choices = self.browser.find_elements_by_name('choice_id')
+        choices = self.browser.find_elements_by_name('choice_label')
         self.assertEqual(len(choices), 2)
-        choices[0].click()
+        choices[1].click()
         self.browser.find_element_by_name('vote').click()
 
         # now the results page should include 1 vote for I would love one
@@ -27,9 +27,9 @@ class VoteOnPollTest(FunctionalTest):
         )
         self.assertEqual(
             self.browser.find_element_by_name(f'{choice_0.id}-votes').text,
-            '1'
+            '0 Votes'
         )
         self.assertEqual(
             self.browser.find_element_by_name(f'{choice_1.id}-votes').text,
-            '0'
+            '1 Vote'
         )
