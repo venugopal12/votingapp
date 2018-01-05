@@ -23,12 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
-    'accounts',
-]
-
-AUTH_USER_MODEL = 'accounts.User'
-AUTHENTICATION_BACKENDS = [
-    'accounts.authentication.PasswordlessAuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -71,11 +65,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-DEFAULT_FROM_EMAIL = 'Admin <noreply@miniscruff.com>'
-MANAGERS = (
-    ('Ronnie', 'halfpint1170@gmail.com')
-)
-
 # Load secrets and environment specific settings based on which
 # environment we are currently in
 # Note: The following is ignored by coverage reports.
@@ -83,12 +72,6 @@ if 'CI' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = True
     ALLOWED_HOSTS = []
-
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = os.environ['GMAIL_USER']
-    EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
-    EMAIL_PORT = 587
 
     DATABASES = {
         'default': {
@@ -101,12 +84,6 @@ elif 'HEROKU' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = False
     ALLOWED_HOSTS = [os.environ['ALLOWED_HOST']]
-
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = os.environ['GMAIL_USER']
-    EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
-    EMAIL_PORT = 587
 
     # redirect all http to https
     SECURE_SSL_REDIRECT = True
@@ -129,12 +106,6 @@ else:  # noqa
     SECRET_KEY = local_config.APP_SECRET_KEY
     DEBUG = local_config.APP_DEBUG
     ALLOWED_HOSTS = local_config.APP_ALLOWED_HOSTS
-
-    EMAIL_USE_TLS = local_config.EMAIL_USE_TLS
-    EMAIL_HOST = local_config.EMAIL_HOST
-    EMAIL_HOST_USER = local_config.EMAIL_HOST_USER
-    EMAIL_HOST_PASSWORD = local_config.EMAIL_HOST_PASSWORD
-    EMAIL_PORT = local_config.EMAIL_PORT
 
     DATABASES = {
         'default': {

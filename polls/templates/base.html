@@ -15,24 +15,6 @@
 
             <nav class="navbar navbar-expand-sm navbar-dark">
                 <a class="navbar-brand" href="/">Mini Votes</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> 
-                    <span class="navbar-toggler-icon"></span> 
-                </button> 
-                <div class="justify-content-end collapse navbar-collapse" id="navbarCollapse">
-                    {% if user.email %}
-                    <form class="form-inline mt-2 mt-md-0" method="POST" action="{% url 'logout' %}">
-                        <label class="text-light pr-3">Welcome {{ user.email_root }}</label>
-                        <button class="btn btn-outline-danger my-2 my-sm-0" name="logout-button" type="submit">Logout</button>
-                        {% csrf_token %}
-                    </form>
-                    {% else %}
-                    <form class="form-inline mt-2 mt-md-0" method="POST" action="{% url 'send_login_email' %}">
-                        <input class="form-control mr-sm-2" name="email" type="text" placeholder="Email" aria-label="Email">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-                        {% csrf_token %}
-                    </form>
-                    {% endif %}
-                </div>
             </nav>
             
             <main role="main">

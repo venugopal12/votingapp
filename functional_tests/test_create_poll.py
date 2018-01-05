@@ -9,38 +9,12 @@ User = get_user_model()
 
 class CreatePollTest(FunctionalTest):
 
-    def authenticate_user(self, email):
-        user = User.objects.create(email=email)
-        session = SessionStore()
-        session[SESSION_KEY] = user.pk
-        session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
-        session.save()
-        # to set a cookie we need to first visit the domain.
-        # 404 pages load the quickest!
-        self.browser.get(self.live_server_url + '/404_no_page/')
-        self.browser.add_cookie(dict(
-            name=settings.SESSION_COOKIE_NAME,
-            value=session.session_key,
-            path='/',
-        ))
-
     def test_authenticated_user_creates_a_poll(self):
         question = 'Do you like python?'
         first_choice = 'First choice'
         second_choice = 'Not our first choice'
 
-        # Mary logs in
-        test_email = 'mary@example.com'
-        self.authenticate_user(test_email)
-        self.browser.get(self.live_server_url)
-        self.wait_to_be_logged_in()
-
-        # She is then taken to her dashboard
-        # She then clicks the new poll button
-        self.wait_for(
-            lambda:
-                self.browser.find_element_by_name('new-poll-button').click()
-        )
+        self.browser.get(self.live_server_url + '/new')
 
         # She gives it a question and two choices
         self.wait_for(

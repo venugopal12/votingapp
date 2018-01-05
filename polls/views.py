@@ -15,12 +15,6 @@ class HomeView(View):
 class NewPollView(View):
 
     def get(self, request):
-        if not request.user.is_authenticated:
-            messages.error(
-                request,
-                'You need to be logged in to create a poll'
-            )
-            return redirect('/')
         return render(request, 'new_poll.html')
 
 

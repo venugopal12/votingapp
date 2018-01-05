@@ -25,16 +25,6 @@ class NewPollTest(TestCase):
         response = self.client.get('/new')
         self.assertTemplateUsed(response, 'new_poll.html')
 
-    def test_redirect_to_home_with_message_if_not_authenticated(self):
-        response = self.client.get('/new', follow=True)
-        self.assertRedirects(response, '/')
-        message = list(response.context['messages'])[0]
-        self.assertEqual(
-            'You need to be logged in to create a poll',
-            message.message
-        )
-        self.assertEqual(message.tags, 'error')
-
 
 class ViewPollGetTest(TestCase):
 
