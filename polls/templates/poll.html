@@ -1,19 +1,16 @@
 {% extends "base.html" %}
-{% block jumbotron %}
-<h1 name="poll-text" class="jumbotron-heading">{{ poll.text }}</h1>
-{% endblock %}
+{% block title %}Voting{% endblock %}
 {% block content %}
+<h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
 <form method="POST" action="{% url 'vote' %}">
-    <div class="btn-group btn-group-lg btn-group-vertical" data-toggle="buttons">
-        {% for choice in poll.choice_set.all %}
-        <label class="btn btn-primary btn-block">
-            <input type="radio" name="choice_id" value="{{ choice.id }}" autocomplete="off">
-            {{ choice.text }}
-        </label>
-        {% endfor %}
+    {% for choice in poll.choice_set.all %}
+    <div class="vote-option">
+        <input id="{{ choice.text }}-id" type="radio" name="choice_id" value="{{ choice.id }}" {% if forloop.first %}checked{% endif %}>
+        <label for="{{ choice.text }}-id" name="choice_label">{{ choice.text }}</label>
     </div>
+    {% endfor %}
     <input type="hidden" name="poll_uid" value="{{ poll.uid }}">
-    <button class="btn btn-success" name="vote" type="submit">Vote</button>
+    <button class="btn btn-success btn-lg" name="vote" type="submit">Vote</button>
     {% csrf_token %}
 </form>
 {% endblock %}

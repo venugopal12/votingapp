@@ -1,13 +1,31 @@
 {% extends "base.html" %}
-{% block jumbotron %}
-<h1 class="jumbotron-heading">New Poll</h1>
-{% endblock %}
+{% block title %}New Poll{% endblock %}
 {% block content %}
-<form class="form-inline mt-2 mt-md-0" method="POST" action="{% url 'poll' %}">
-    <input class="form-control mr-sm-2" name="text" type="text" placeholder="Question" aria-label="Question">
-    <input class="form-control mr-sm-2" name="choices" type="text" placeholder="Choice 1" aria-label="Choice 1">
-    <input class="form-control mr-sm-2" name="choices" type="text" placeholder="Choice 2" aria-label="Choice 2">
-    <button class="btn btn-success" name="create-poll" type="submit">Create Poll</button>
+<form method="POST" action="{% url 'poll' %}">
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" placeholder="Type your question here..." name="text">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">1.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">2.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">3.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">4.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">5.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <button class="btn btn-success btn-lg" name="create-poll" type="submit">Create Poll</button>
     {% csrf_token %}
 </form>
 {% endblock %}
