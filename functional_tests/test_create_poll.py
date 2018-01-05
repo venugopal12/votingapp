@@ -1,10 +1,4 @@
 from functional_tests.base import FunctionalTest
-from django.conf import settings
-from django.contrib.sessions.backends.db import SessionStore
-from django.contrib.auth import (
-    BACKEND_SESSION_KEY, SESSION_KEY, get_user_model
-)
-User = get_user_model()
 
 
 class CreatePollTest(FunctionalTest):

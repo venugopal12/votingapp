@@ -1,6 +1,5 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from polls.models import Poll, Choice
 
 
