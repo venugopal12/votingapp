@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <a href="/new" class="btn btn-success" name="new-poll-button">New Poll</a>
-    <div class="row">
-        <div class="col-lg-4">
-            <h4>Simple</h4>
-            <p>Simple and easy to use public polls.</p>
-        </div>
-        <div class="col-lg-4">
-            <h4>Authentication</h4>
-            <p>Passwordless authentication model so you don't have to remember another password.</p>
-        </div>
-        <div class="col-lg-4">
-            <h4>Responsive design</h4>
-            <p>Create, edit and vote on polls from your PC, phone or tablet.</p>
-        </div>
-        <div class="col-lg-4">
-            <h4>Open source</h4>
-            <p>MIT licensed open source project on github, <a href="https://github.com/miniscruff/votingapp">view here</a></p>
-        </div>
+<form method="POST" action="{% url 'poll' %}">
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" placeholder="Type your question here..." name="text">
     </div>
-</div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">1.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">2.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">3.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">4.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <div class="input-group pb-2">
+        <label class="col-form-label choice-label">5.</label>
+        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+    </div>
+    <button class="btn btn-success btn-lg" name="create-poll" type="submit">Create Poll</button>
+    {% csrf_token %}
+</form>
 {% endblock %}

@@ -9,13 +9,6 @@ class HomeTest(TestCase):
         self.assertTemplateUsed(response, 'home.html')
 
 
-class NewPollTest(TestCase):
-
-    def test_new_poll_uses_new_poll_template(self):
-        response = self.client.get('/new')
-        self.assertTemplateUsed(response, 'new_poll.html')
-
-
 class ViewPollGetTest(TestCase):
 
     def test_uses_poll_template(self):

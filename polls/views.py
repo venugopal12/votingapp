@@ -9,12 +9,6 @@ class HomeView(View):
         return render(request, 'home.html')
 
 
-class NewPollView(View):
-
-    def get(self, request):
-        return render(request, 'new_poll.html')
-
-
 class PollView(View):
 
     def get(self, request, uid):

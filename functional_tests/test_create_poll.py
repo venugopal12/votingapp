@@ -8,7 +8,7 @@ class CreatePollTest(FunctionalTest):
         first_choice = 'First choice'
         second_choice = 'Not our first choice'
 
-        self.browser.get(self.live_server_url + '/new')
+        self.browser.get(self.live_server_url)
 
         # She gives it a question and two choices
         self.wait_for(
