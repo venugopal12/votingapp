@@ -6,8 +6,6 @@ from polls.models import Poll, Choice
 class HomeView(View):
 
     def get(self, request):
-        if request.user.is_authenticated:
-            return render(request, 'dashboard.html')
         return render(request, 'home.html')
 
 
