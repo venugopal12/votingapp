@@ -5,12 +5,6 @@
     "postdeploy": "python manage.py migrate --noinput"
   },
   "env": {
-    "GMAIL_PASSWORD": {
-      "required": true
-    },
-    "GMAIL_USER": {
-      "required": true
-    },
     "HEROKU": "1",
     "SECRET_KEY": {
       "generator": "secret"
