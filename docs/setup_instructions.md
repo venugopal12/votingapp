@@ -41,6 +41,3 @@ https://github.com/mozilla/geckodriver/releases
 Copy the example file from the docs folder to the votingsite folder.
 
 Edit the file for your own personal settings.
-
-The example uses gmail but any smtp email service should work.
-

@@ -16,23 +16,15 @@ class FunctionalTest(StaticLiveServerTestCase):
             while True:
                 try:
                     return fn(*args, **kwargs)
-                except (AssertionError, WebDriverException) as e:
+                except (AssertionError, WebDriverException) as e:  # noqa
                     if time.time() - start_time > MAX_WAIT:
-                        raise e  # noqa
+                        raise e
                     time.sleep(WAIT_DELAY)
         return modified_fn
 
     @wait
     def wait_for(self, fn):
         return fn()
-
-    @wait
-    def wait_to_be_logged_in(self):
-        self.browser.find_element_by_name('logout-button')
-
-    @wait
-    def wait_to_be_logged_out(self):
-        self.browser.find_element_by_name('email')
 
     def setUp(self):
         self.browser = webdriver.Firefox()
