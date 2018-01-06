@@ -75,3 +75,14 @@ class ChoiceModelTest(TestCase):
         choice = Choice.objects.create(poll=poll, text='text')
         choice.vote()
         self.assertEqual(poll.total_votes, 1)
+
+    def test_choice_order_is_preserved(self):
+        poll = Poll.objects.create(text='text')
+        choices = [
+            Choice.objects.create(poll=poll, text='A')
+            for _ in range(5)
+        ]
+        self.assertListEqual(
+            choices,
+            list(Choice.objects.all())
+        )

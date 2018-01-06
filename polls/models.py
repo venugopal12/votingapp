@@ -31,3 +31,6 @@ class Choice(models.Model):
         self.save()
         self.poll.total_votes += 1
         self.poll.save()
+
+    class Meta:
+        ordering = ('id',)
