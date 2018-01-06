@@ -25,6 +25,23 @@ class HomePOSTTest(TestCase):
         self.assertEqual(choices[0].text, 'A')
         self.assertEqual(choices[1].text, 'B')
 
+    def test_empty_entries_are_ignored(self):
+        self.client.post('/', {
+            'text': 'Poll text',
+            'choices': ['A', 'B', '', '', '']
+        })
+
+        self.assertEqual(Choice.objects.count(), 2)
+
+    def test_single_choice_displays_error(self):
+        response = self.client.post('/', {
+            'text': 'Poll Text',
+            'choices': ['A', '', '', '']
+        }, follow=True)
+
+        self.assertEqual(Choice.objects.count(), 0)
+        self.assertContains(response, 'Need at least two choices')
+
     def test_redirects_to_new_poll(self):
         response = self.client.post('/', {
             'text': 'Poll Text',

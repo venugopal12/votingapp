@@ -34,3 +34,6 @@ class CreatePollTest(FunctionalTest):
         body_text = self.browser.find_element_by_tag_name('body').text
         self.assertIn(first_choice, body_text)
         self.assertIn(second_choice, body_text)
+
+        choices = self.browser.find_elements_by_name('choice_label')
+        self.assertEqual(len(choices), 2)

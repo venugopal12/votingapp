@@ -1,5 +1,6 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from polls.models import Poll, Choice
 
 
@@ -12,7 +13,12 @@ class HomeView(View):
         text = request.POST['text']
         poll = Poll.objects.create(text=text)
 
-        for choice in request.POST.getlist('choices'):
+        choices = [x for x in request.POST.getlist('choices') if x]
+        if len(choices) < 2:
+            messages.error(request, 'Need at least two choices')
+            return redirect('/')
+
+        for choice in choices:
             Choice.objects.create(text=choice, poll=poll)
 
         return redirect(f'/poll/{poll.uid}')
