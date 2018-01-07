@@ -1,12 +1,17 @@
 body {
     background-color: rgb(43, 43, 43);
     color: rgb(211, 211, 211);
+    font-family: 'Lato', cursive;
 }
 
 nav {
     border-bottom-width: 2px;
     border-color: rgb(94, 94, 94);
     border-bottom-style: solid;
+}
+
+.company-header {
+    font-family: 'Norican', cursive;
 }
 
 main {
