@@ -6,31 +6,40 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   id="svg8"
-   version="1.1"
-   viewBox="0 0 16.933333 16.933334"
+   width="64"
    height="64"
-   width="64">
+   viewBox="0 0 16.933333 16.933334"
+   version="1.1"
+   id="svg8">
   <defs
      id="defs2">
     <linearGradient
        id="linearGradient859-6">
       <stop
-         id="stop855"
+         style="stop-color:#800000;stop-opacity:1"
          offset="0"
-         style="stop-color:#800000;stop-opacity:1" />
+         id="stop855" />
       <stop
-         id="stop857"
+         style="stop-color:#ff0000;stop-opacity:1"
          offset="1"
-         style="stop-color:#ff0000;stop-opacity:1" />
+         id="stop857" />
     </linearGradient>
     <linearGradient
-       y2="4.8095913"
-       x2="11.882418"
-       y1="14.656594"
-       x1="3.0303137"
-       gradientUnits="userSpaceOnUse"
+       xlink:href="#linearGradient859-6"
        id="linearGradient868"
+       gradientUnits="userSpaceOnUse"
+       x1="3.0303137"
+       y1="14.656594"
+       x2="11.882418"
+       y2="4.8095913" />
+    <linearGradient
+       gradientTransform="matrix(1.101777,0,0,1.101777,-1.7004716,-0.69976207)"
+       gradientUnits="userSpaceOnUse"
+       y2="4.6392975"
+       x2="13.614132"
+       y1="13.317441"
+       x1="4.7854295"
+       id="linearGradient1444"
        xlink:href="#linearGradient859-6" />
   </defs>
   <metadata
@@ -47,16 +56,35 @@
   </metadata>
   <g
      style="display:inline"
-     id="layer2">
+     id="layer1">
     <path
-       cx="7.4064651"
-       cy="9.1342888"
-       r="6.2528749"
-       id="path827"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:url(#linearGradient868);stroke-width:2.10152769;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
-    <path
-       id="path829"
-       d="M 3.9048602,8.1826835 7.2922085,9.3353231 16.842649,0.9375216 7.245162,12.722672 Z"
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       d=""
+       cx="8.0616636"
+       cy="9.0139351"
+       r="6.8049927"
+       id="path1416"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#800000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+    <ellipse
+       ry="6.7008028"
+       rx="6.7269263"
+       cy="8.826663"
+       cx="8.1090851"
+       id="path1436"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:url(#linearGradient1444);stroke-width:2.20355392;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+    <g
+       id="layer2"
+       style="display:inline">
+      <path
+         d=""
+         style="opacity:1;fill:none;fill-opacity:1;stroke:url(#linearGradient868);stroke-width:2.10152769;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+         id="path827"
+         r="6.2528749"
+         cy="9.1342888"
+         cx="7.4064651" />
+      <path
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 3.9048602,8.1826835 7.2922085,9.3353231 16.842649,0.9375216 7.245162,12.722672 Z"
+         id="path829" />
+    </g>
   </g>
 </svg>
