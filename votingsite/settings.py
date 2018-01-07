@@ -98,6 +98,22 @@ elif 'HEROKU' in os.environ:  # noqa
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': 'INFO',
+            },
+        },
+    }
+
 else:  # noqa
     from votingsite import local_config
     SECRET_KEY = local_config.APP_SECRET_KEY
