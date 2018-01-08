@@ -10,7 +10,6 @@ class Poll(models.Model):
     text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     uid = models.CharField(
-        primary_key=True,
         default=short_urltoken,
         max_length=40
     )
