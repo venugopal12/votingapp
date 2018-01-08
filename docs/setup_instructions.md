@@ -25,7 +25,6 @@ pip install -r requirements/test.txt
 
 ## Migrate database
 ```
-votingsite$ python manage.py makemigrations
 votingsite$ python manage.py migrate
 ```
 
