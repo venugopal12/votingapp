@@ -27,10 +27,6 @@ class PollModelTest(TestCase):
             datetime.now(timezone.utc) - poll.pub_date < timedelta(seconds=0.2)
         )
 
-    def test_uid_is_primary_key(self):
-        poll = Poll.objects.create(text='text')
-        self.assertEqual(poll.pk, poll.uid)
-
     def test_total_votes_starts_at_zero(self):
         poll = Poll.objects.create(text='text')
         self.assertEqual(poll.total_votes, 0)
