@@ -3,7 +3,7 @@ from functional_tests.base import FunctionalTest
 
 class CreatePollTest(FunctionalTest):
 
-    def test_authenticated_user_creates_a_poll(self):
+    def test_user_creates_a_poll(self):
         question = 'Do you like python?'
         first_choice = 'First choice'
         second_choice = 'Not our first choice'

@@ -13,23 +13,12 @@ class Poll(models.Model):
         default=short_urltoken,
         max_length=40
     )
-    total_votes = models.IntegerField(default=0)
 
 
 class Choice(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     text = models.CharField(blank=False, max_length=200)
-    _votes = models.IntegerField(default=0)
-
-    @property
-    def votes(self):
-        return self._votes
-
-    def vote(self):
-        self._votes += 1
-        self.save()
-        self.poll.total_votes += 1
-        self.poll.save()
+    votes = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('id',)

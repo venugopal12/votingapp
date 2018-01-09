@@ -1,6 +1,7 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Sum
 from polls.models import Poll, Choice
 
 
@@ -33,7 +34,8 @@ class PollView(View):
     def post(self, request, uid):
         poll = Poll.objects.get(uid=uid)
         choice = Choice.objects.get(id=request.POST['choice_id'])
-        choice.vote()
+        choice.votes += 1
+        choice.save()
 
         return redirect(f'/poll/{poll.uid}/results')
 
@@ -41,5 +43,7 @@ class PollView(View):
 class ResultsView(View):
 
     def get(self, request, uid):
-        poll = Poll.objects.get(uid=uid)
+        poll = Poll.objects.annotate(
+            total_votes=Sum('choice__votes')
+        ).get(uid=uid)
         return render(request, 'results.html', {'poll': poll})

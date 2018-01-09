@@ -140,3 +140,12 @@ class ResultsTest(TestCase):
         poll = Poll.objects.create(text='The question we are asking')
         response = self.client.get(f'/poll/{poll.uid}/results')
         self.assertEqual(response.context['poll'], poll)
+
+    def test_passes_in_total_votes_as_annotation(self):
+        poll = Poll.objects.create(text='The question we are asking')
+        for i in range(5):
+            choice = Choice.objects.create(text=str(i), poll=poll)
+            choice.votes = i
+            choice.save()
+        response = self.client.get(f'/poll/{poll.uid}/results')
+        self.assertEqual(response.context['poll'].total_votes, 10)
