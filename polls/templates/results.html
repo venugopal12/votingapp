@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Results{% endblock %}
 {% block content %}
-<h1 name="poll-text" class="jumbotron-heading text-center">{{ poll.text }}</h1>
-{% for choice in poll.choice_set.all %}
-<div class="row">
-    <div class="col">
-        {{ choice.text }}
-    </div>
-    <div class="col-2" name="{{ choice.id }}-votes">
-        {{ choice.votes }} Vote{% if choice.votes != 1 %}s{% endif %}
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="progress">
-            {% widthratio choice.votes poll.total_votes 100 as width %}
-            <div class="progress-bar" style="width: {{width}}%">{{width}}%</div>
+<section class="content">
+    <h1 name="poll-text" class="jumbotron-heading text-center">{{ poll.text }}</h1>
+    {% for choice in poll.choice_set.all %}
+    <div class="row">
+        <div class="col">
+            {{ choice.text }}
+        </div>
+        <div class="col-2" name="{{ choice.id }}-votes">
+            {{ choice.votes }} Vote{% if choice.votes != 1 %}s{% endif %}
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col">
+            <div class="progress">
+                {% widthratio choice.votes poll.total_votes 100 as width %}
+                <div class="progress-bar" style="width: {{width}}%">{{width}}%</div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    Share [ {% url 'poll' poll.uid %} ]
+</section>
 {% endfor %}
 {% endblock %}

@@ -1,31 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<form method="POST" action="{% url 'home' %}">
-    <div class="form-group">
-        <input type="text" class="form-control form-control-lg" placeholder="Type your question here..." name="text">
-    </div>
-    <div class="input-group pb-2">
-        <label class="col-form-label choice-label">1.</label>
-        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-    </div>
-    <div class="input-group pb-2">
-        <label class="col-form-label choice-label">2.</label>
-        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-    </div>
-    <div class="input-group pb-2">
-        <label class="col-form-label choice-label">3.</label>
-        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-    </div>
-    <div class="input-group pb-2">
-        <label class="col-form-label choice-label">4.</label>
-        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-    </div>
-    <div class="input-group pb-2">
-        <label class="col-form-label choice-label">5.</label>
-        <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-    </div>
-    <button class="btn btn-success btn-lg" name="create-poll" type="submit">Create Poll</button>
-    {% csrf_token %}
-</form>
+<section class="content">
+    <form method="POST" action="{% url 'home' %}">
+        <div class="form-group">
+            <input type="text" class="form-control form-control-lg" placeholder="Type your question here..." name="text">
+        </div>
+        <div class="input-group pb-2">
+            <label class="col-form-label choice-label">1.</label>
+            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+        </div>
+        <div class="input-group pb-2">
+            <label class="col-form-label choice-label">2.</label>
+            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+        </div>
+        <div class="input-group pb-2">
+            <label class="col-form-label choice-label">3.</label>
+            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+        </div>
+        <div class="input-group pb-2">
+            <label class="col-form-label choice-label">4.</label>
+            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+        </div>
+        <div class="input-group pb-2">
+            <label class="col-form-label choice-label">5.</label>
+            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
+        </div>
+        <button class="btn btn-success btn-lg" name="create-poll" type="submit">Create Poll</button>
+        {% csrf_token %}
+    </form>
+</section>
 {% endblock %}

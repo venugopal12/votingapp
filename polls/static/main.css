@@ -18,7 +18,7 @@ main {
     padding-top: 1rem;
 }
 
-#content {
+.content {
     border-style: solid;
     border-width: 2px;
     border-color: rgb(83, 83, 83);

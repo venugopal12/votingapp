@@ -1,15 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Voting{% endblock %}
 {% block content %}
-<h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
-<form method="POST" action="{% url 'poll' poll.uid %}">
-    {% for choice in poll.choice_set.all %}
-    <div class="vote-option">
-        <input id="{{ choice.text }}-id" type="radio" name="choice_id" value="{{ choice.id }}" {% if forloop.first %}checked{% endif %}>
-        <label for="{{ choice.text }}-id" name="choice_label">{{ choice.text }}</label>
+<section class="content">
+    <h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
+    <form method="POST" action="{% url 'poll' poll.uid %}">
+        {% for choice in poll.choice_set.all %}
+        <div class="vote-option">
+            <input id="{{ choice.text }}-id" type="radio" name="choice_id" value="{{ choice.id }}" {% if forloop.first %}checked{% endif %}>
+            <label for="{{ choice.text }}-id" name="choice_label">{{ choice.text }}</label>
+        </div>
+        {% endfor %}
+        <button class="btn btn-success btn-lg" name="vote" type="submit">Vote</button>
+        {% csrf_token %}
+    </form>
+</section>
+<section class="content">
+    <div>
+        <i class="fas fa-share"></i>
+        Share this poll
     </div>
-    {% endfor %}
-    <button class="btn btn-success btn-lg" name="vote" type="submit">Vote</button>
-    {% csrf_token %}
-</form>
+    <div>
+        <input class="form-control" type="text" value="{{ request.scheme }}://{{ request.get_host }}{% url "poll" poll.uid %}" readonly>
+    </div>
+</section>
 {% endblock %}
