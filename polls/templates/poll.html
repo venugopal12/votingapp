@@ -15,12 +15,18 @@
     </form>
 </section>
 <section class="content">
+    {% url "poll" poll.uid as current_url %}
+    {% with full_url=request.scheme|add:'://'|add:request.get_host|add:current_url %}
     <div>
         <i class="fas fa-share"></i>
         Share this poll
     </div>
     <div>
-        <input class="form-control" type="text" value="{{ request.scheme }}://{{ request.get_host }}{% url "poll" poll.uid %}" readonly>
+        <input class="form-control" type="text" value="{{ full_url }}" readonly>
     </div>
+    <div class="p-1">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:"" }}" rel="nofollow" target="_blank"><img class="fab fa-facebook fa-2x" width="50" height="50"></a>
+    </div>
+    {% endwith %}
 </section>
 {% endblock %}
