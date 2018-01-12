@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Voting{% endblock %}
+{% block og-title %}{{ poll.text }}{% endblock %}
+{% block og-description %}Vote now{% endblock %}
 {% block content %}
 <section class="content">
     <h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
@@ -15,8 +17,7 @@
     </form>
 </section>
 <section class="content">
-    {% url "poll" poll.uid as current_url %}
-    {% with full_url=request.scheme|add:'://'|add:request.get_host|add:current_url %}
+    {% with full_url=request.scheme|add:'://'|add:request.get_host|add:request.path %}
     <div>
         <i class="fas fa-share"></i>
         Share this poll
