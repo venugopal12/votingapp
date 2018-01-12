@@ -16,21 +16,5 @@
         {% csrf_token %}
     </form>
 </section>
-<section class="content">
-    {% url "poll" poll.uid as current_url %} 
-    {% with full_url=request.scheme|add:'://'|add:request.get_host|add:current_url %} 
-    <div>
-        <i class="fas fa-share"></i>
-        Share
-    </div>
-    <div>
-        <input class="form-control" type="text" value="{{ full_url }}" readonly>
-    </div>
-    <div class="social-bar">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:"" }}" rel="nofollow" target="_blank"><img class="fab fa-fw fa-facebook-f"></a>
-        <a href="https://twitter.com/intent/tweet/?text={{ poll.text|urlencode:"" }}&url={{ full_url|urlencode:"" }}&hashtags=minivotes,poll" target="_blank"><img class="fab fa-fw fa-twitter"></a>
-        <a href="https://www.linkedin.com/shareArticle?title={{ poll.text|urlencode:"" }}&summary=Vote%20Now&url={{ full_url|urlencode:"" }}&mini=true&source=Mini%20Votes" target="_blank"><img class="fab fa-fw fa-linkedin-in"></a>
-    </div>
-    {% endwith %}
-</section>
+{% include "share_poll.html" %}
 {% endblock %}
