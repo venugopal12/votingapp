@@ -7,9 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:site_name" content="Mini Votes" />
         <meta property="og:url" content="{{ request.scheme|add:'://'|add:request.get_host|add:request.path }}" />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content="{% block og-title %}Mini Votes{% endblock %}" />
         <meta property="og:description" content="{% block og-description %}Simple and fast polls{% endblock %}" />
-        <meta property="og:image" content="{% static "img/generic_sharing_image.png" %}" />
+        <meta property="og:image" content="{{request.scheme|add:'://'|add:request.get_host}}{% static "img/generic_sharing_image.png" %}" />
         <meta property="og:image:width" content="600" />
         <meta property="og:image:height" content="315" />
 
