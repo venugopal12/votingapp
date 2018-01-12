@@ -17,7 +17,8 @@
     </form>
 </section>
 <section class="content">
-    {% with full_url=request.scheme|add:'://'|add:request.get_host|add:request.path %}
+    {% url "poll" poll.uid as current_url %} 
+    {% with full_url=request.scheme|add:'://'|add:request.get_host|add:current_url %} 
     <div>
         <i class="fas fa-share"></i>
         Share this poll
@@ -26,7 +27,7 @@
         <input class="form-control" type="text" value="{{ full_url }}" readonly>
     </div>
     <div class="p-1">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:"" }}" rel="nofollow" target="_blank"><img class="fab fa-facebook fa-2x" width="50" height="50"></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:"" }}" rel="nofollow" target="_blank"><img class="fab fa-facebook fa-3x" width="50" height="50"></a>
     </div>
     {% endwith %}
 </section>

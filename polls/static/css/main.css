@@ -61,6 +61,14 @@ main {
     border-color: rgb(0, 255, 0);
 }
 
+.fa-facebook {
+    color: #3b5998;
+}
+
+.fa-facebook:hover {
+    color: #2f4779;
+}
+
 @media (min-width: 48em) {
     .container {
         max-width: 46rem;
