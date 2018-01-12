@@ -27,7 +27,8 @@
         <input class="form-control" type="text" value="{{ full_url }}" readonly>
     </div>
     <div class="p-1">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:"" }}" rel="nofollow" target="_blank"><img class="fab fa-facebook fa-3x" width="50" height="50"></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode:"" }}" rel="nofollow" target="_blank"><img class="fab fa-facebook fa-3x m-2"></a>
+        <a href="https://twitter.com/intent/tweet/?text={{ poll.text|urlencode:"" }}&url={{ full_url|urlencode:"" }}&hashtags=minivotes,poll" target="_blank"><img class="fab fa-twitter fa-3x m-2"></a>
     </div>
     {% endwith %}
 </section>

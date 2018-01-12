@@ -69,6 +69,14 @@ main {
     color: #2f4779;
 }
 
+.fa-twitter {
+    color: #1da1f2;
+}
+
+.fa-twitter:hover {
+    color: #0575bb;
+}
+
 @media (min-width: 48em) {
     .container {
         max-width: 46rem;
