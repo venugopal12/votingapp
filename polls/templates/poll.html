@@ -12,7 +12,10 @@
             <label for="{{ choice.text }}-id" name="choice_label">{{ choice.text }}</label>
         </div>
         {% endfor %}
-        <button class="btn btn-success btn-lg" name="vote" type="submit">Vote</button>
+        <div>
+            <button class="btn btn-success btn-lg" name="vote" type="submit">Vote</button>
+            <a href="{% url 'results' poll.uid %}"><button class="btn btn-secondary btn-lg" type="button">Results</button></a>
+        </div>
         {% csrf_token %}
     </form>
 </section>
