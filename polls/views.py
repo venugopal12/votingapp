@@ -11,7 +11,7 @@ class HomeView(FormView):
 
     def form_valid(self, form):
         form.save()
-        return redirect(f'/poll/{form.poll.uid}')
+        return redirect('poll', uid=form.poll.uid)
 
 
 class PollView(View):
@@ -26,7 +26,7 @@ class PollView(View):
         choice.votes += 1
         choice.save()
 
-        return redirect(f'/poll/{poll.uid}/results')
+        return redirect('results', uid=poll.uid)
 
 
 class ResultsView(View):
