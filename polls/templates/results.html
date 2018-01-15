@@ -16,9 +16,9 @@
     </div>
     <div class="row">
         <div class="col">
-            <div class="progress">
+            <div class="progress bg-dark">
                 {% widthratio choice.votes poll.total_votes 100 as width %}
-                <div class="progress-bar" style="width: {{width}}%">{{width}}%</div>
+                <div class="progress-bar bg-danger" style="width: {{width}}%">{{width}}%</div>
             </div>
         </div>
     </div>
