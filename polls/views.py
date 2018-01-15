@@ -1,28 +1,17 @@
-from django.views.generic import View
+from django.views.generic import View, FormView
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from django.db.models import Sum
 from polls.models import Poll, Choice
+from polls.forms import NewPollForm
 
 
-class HomeView(View):
+class HomeView(FormView):
+    template_name = 'home.html'
+    form_class = NewPollForm
 
-    def get(self, request):
-        return render(request, 'home.html')
-
-    def post(self, request):
-        text = request.POST['text']
-        poll = Poll.objects.create(text=text)
-
-        choices = [x for x in request.POST.getlist('choices') if x]
-        if len(choices) < 2:
-            messages.error(request, 'Need at least two choices')
-            return redirect('/')
-
-        for choice in choices:
-            Choice.objects.create(text=choice, poll=poll)
-
-        return redirect(f'/poll/{poll.uid}')
+    def form_valid(self, form):
+        form.save()
+        return redirect(f'/poll/{form.poll.uid}')
 
 
 class PollView(View):

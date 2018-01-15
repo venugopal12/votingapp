@@ -1,12 +1,17 @@
 from django.test import TestCase
 from polls.models import Poll, Choice
+from polls.forms import NewPollForm
 
 
 class HomeGETTest(TestCase):
 
-    def test_home_page_using_home_template(self):
+    def test_home_page_uses_home_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
+
+    def test_home_page_uses_new_poll_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], NewPollForm)
 
 
 class HomePOSTTest(TestCase):
@@ -14,7 +19,8 @@ class HomePOSTTest(TestCase):
     def test_creates_poll(self):
         self.client.post('/', {
             'text': 'Poll Text',
-            'choices': ['A', 'B']
+            'choice_1': 'A',
+            'choice_2': 'B'
         })
 
         new_poll = Poll.objects.first()
@@ -25,27 +31,11 @@ class HomePOSTTest(TestCase):
         self.assertEqual(choices[0].text, 'A')
         self.assertEqual(choices[1].text, 'B')
 
-    def test_empty_entries_are_ignored(self):
-        self.client.post('/', {
-            'text': 'Poll text',
-            'choices': ['A', 'B', '', '', '']
-        })
-
-        self.assertEqual(Choice.objects.count(), 2)
-
-    def test_single_choice_displays_error(self):
-        response = self.client.post('/', {
-            'text': 'Poll Text',
-            'choices': ['A', '', '', '']
-        }, follow=True)
-
-        self.assertEqual(Choice.objects.count(), 0)
-        self.assertContains(response, 'Need at least two choices')
-
     def test_redirects_to_new_poll(self):
         response = self.client.post('/', {
             'text': 'Poll Text',
-            'choices': ['A', 'B']
+            'choice_1': 'A',
+            'choice_2': 'B'
         })
         new_poll = Poll.objects.first()
         self.assertRedirects(response, f'/poll/{new_poll.uid}')
