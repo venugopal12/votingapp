@@ -2,32 +2,30 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <section class="content">
-    <form method="POST" action="{% url 'home' %}">
-        <div class="form-group">
-            <input type="text" class="form-control form-control-lg" placeholder="Type your question here..." name="text">
-        </div>
-        <div class="input-group pb-2">
-            <label class="col-form-label choice-label">1.</label>
-            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-        </div>
-        <div class="input-group pb-2">
-            <label class="col-form-label choice-label">2.</label>
-            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-        </div>
-        <div class="input-group pb-2">
-            <label class="col-form-label choice-label">3.</label>
-            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-        </div>
-        <div class="input-group pb-2">
-            <label class="col-form-label choice-label">4.</label>
-            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-        </div>
-        <div class="input-group pb-2">
-            <label class="col-form-label choice-label">5.</label>
-            <input type="text" class="form-control" placeholder="Enter a choice here" name="choices">
-        </div>
-        <button class="btn btn-success btn-lg" name="create-poll" type="submit">Create Poll</button>
+    <form method="POST" action="{% url 'home' %}" novalidate {% if form.is_bound %}class="was-validated"{% endif %}>
         {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% for field in form.visible_fields %}
+        <div class="input-group pb-2">
+            {% if field.label %}<label class="col-form-label choice-label">{{ field.label }}</label>{% endif %}
+            {{ field }}
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <div class="invalid-feedback">
+                {{ error }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-success btn-lg" name="create-poll" type="submit">Create Poll</button>
     </form>
 </section>
 {% endblock %}

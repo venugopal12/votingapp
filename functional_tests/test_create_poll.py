@@ -15,9 +15,8 @@ class CreatePollTest(FunctionalTest):
             lambda: self.browser.find_element_by_name('create-poll')
         )
         self.browser.find_element_by_name('text').send_keys(question)
-        choices = self.browser.find_elements_by_name('choices')
-        choices[0].send_keys(first_choice)
-        choices[1].send_keys(second_choice)
+        self.browser.find_element_by_name('choice_1').send_keys(first_choice)
+        self.browser.find_element_by_name('choice_2').send_keys(second_choice)
 
         # Then she clicks create
         self.browser.find_element_by_name('create-poll').click()
