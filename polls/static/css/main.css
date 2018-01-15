@@ -90,6 +90,17 @@ main {
     background: #0077b5;
 }
 
+.fa-github, .fa-bug {
+    background: transparent;
+    color: #999;
+    transition-property: "color";
+    transition-duration: .25s;
+}
+
+.fa-github:hover, .fa-bug:hover {
+    color: #767676;
+}
+
 @media (min-width: 48em) {
     .container {
         max-width: 46rem;
