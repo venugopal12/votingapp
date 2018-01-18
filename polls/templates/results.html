@@ -4,13 +4,16 @@
 {% block og-description %}Vote now{% endblock %}
 {% block content %}
 <section class="content">
-    <h1 name="poll-text" class="jumbotron-heading text-center">{{ poll.text }}</h1>
+    <h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
     {% for choice in poll.choice_set.all %}
-    <div class="row">
+    {% if not forloop.first %}
+    <div class="thick-line"></div>
+    {% endif %}
+    <div class="row align-items-end">
         <div class="col">
             {{ choice.text }}
         </div>
-        <div class="col-2" name="{{ choice.id }}-votes">
+        <div class="col-3 text-right align-bottom" name="{{ choice.id }}-votes">
             {{ choice.votes }} Vote{% if choice.votes != 1 %}s{% endif %}
         </div>
     </div>

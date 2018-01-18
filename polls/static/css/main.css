@@ -101,6 +101,12 @@ main {
     color: #767676;
 }
 
+.thick-line {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top: 3px solid rgb(83, 83, 83);
+}
+
 @media (min-width: 48em) {
     .container {
         max-width: 46rem;
