@@ -5,7 +5,7 @@
 {% block content %}
 <section class="content">
     <h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
-    {% for choice in poll.choice_set.all %}
+    {% for choice in poll.choices %}
     {% if not forloop.first %}
     <div class="thick-line"></div>
     {% endif %}
@@ -21,11 +21,14 @@
         <div class="col">
             <div class="progress bg-dark">
                 {% widthratio choice.votes poll.total_votes 100 as width %}
-                <div class="progress-bar bg-danger" style="width: {{width}}%">{{width}}%</div>
+                <div class="progress-bar text-dark" style="width: {{width}}%; background-color: {{ choice.color }};">{{width}}%</div>
             </div>
         </div>
     </div>
     {% endfor %}
+</section>
+<section class="content">
+    <embed type="image/svg+xml" src="{{ chart|safe }}" />
 </section>
 {% include "share_poll.html" %}
 {% endblock %}

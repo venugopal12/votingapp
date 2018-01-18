@@ -1,4 +1,5 @@
 from django.test import TestCase
+from unittest.mock import patch
 from polls.models import Poll, Choice
 from polls.forms import NewPollForm
 
@@ -131,7 +132,47 @@ class ResultsTest(TestCase):
         response = self.client.get(f'/poll/{poll.uid}/results')
         self.assertEqual(response.context['poll'], poll)
 
-    def test_passes_in_total_votes_as_annotation(self):
+    def test_passes_in_a_chart(self):
+        poll = Poll.objects.create(text='The question we are asking')
+        response = self.client.get(f'/poll/{poll.uid}/results')
+        self.assertIsNotNone(response.context['chart'])
+
+    @patch('polls.views.Pie')
+    def test_pie_chart_from_poll(self, mock_pie):
+        poll = Poll.objects.create(text='The question we are asking')
+        for i in range(5):
+            choice = Choice.objects.create(text=str(i), poll=poll)
+            choice.votes = i
+            choice.save()
+        self.client.get(f'/poll/{poll.uid}/results')
+        mock_pie.assert_called()
+        for i in range(5):
+            mock_pie().add.called_with('0', 0)
+
+    @patch('polls.views.Pie')
+    def test_response_chart_matches_render(self, mock_pie):
+        poll = Poll.objects.create(text='The question we are asking')
+        for i in range(5):
+            choice = Choice.objects.create(text=str(i), poll=poll)
+            choice.votes = i
+            choice.save()
+        response = self.client.get(f'/poll/{poll.uid}/results')
+        self.assertEqual(
+            response.context['chart'],
+            mock_pie().render_data_uri.return_value
+        )
+
+    def test_passes_custom_choices_with_color(self):
+        poll = Poll.objects.create(text='The question we are asking')
+        for i in range(5):
+            Choice.objects.create(text=str(i), poll=poll)
+        response = self.client.get(f'/poll/{poll.uid}/results')
+        choices = response.context['poll'].choices
+        self.assertIsNotNone(choices)
+        for choice in choices:
+            self.assertIsNotNone(choice.color)
+
+    def test_passes_in_total_votes(self):
         poll = Poll.objects.create(text='The question we are asking')
         for i in range(5):
             choice = Choice.objects.create(text=str(i), poll=poll)
