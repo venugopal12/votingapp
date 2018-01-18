@@ -8,7 +8,7 @@ TWO_CHOICES_ERROR = 'Required to have at least two choices'
 
 class NewPollForm(forms.Form):
     text = forms.CharField(
-        max_length=100,
+        max_length=200,
         error_messages={'required': MISSING_TEXT_ERROR},
         label='',
         widget=forms.TextInput(attrs={
@@ -33,7 +33,7 @@ class NewPollForm(forms.Form):
             for k, v in choices.items():
                 self.fields[k] = forms.CharField(
                     label=k.split('_')[1],
-                    max_length=50,
+                    max_length=200,
                     required=False,
                     widget=forms.TextInput(attrs=choice_attrs)
                 )
@@ -42,7 +42,7 @@ class NewPollForm(forms.Form):
         for i in range(len(self.fields), 6):
             self.fields[f'choice_{i}'] = forms.CharField(
                 label=str(i),
-                max_length=50,
+                max_length=200,
                 required=False,
                 widget=forms.TextInput(attrs=choice_attrs)
             )
