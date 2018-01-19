@@ -30,6 +30,7 @@
 </section>
 <section class="content">
     <h2 class="text-center">Popular Polls</h2>
+    {% if popular %}
     {% for poll in popular %}
         <a href="{% url 'poll' poll.uid %}" class="list-group-item list-group-item-action text-light">
             <div class="d-flex w-100 justify-content-between">
@@ -38,5 +39,6 @@
             </div>
         </a>
     {% endfor %}
+    {% endif %}
 </section>
 {% endblock %}
