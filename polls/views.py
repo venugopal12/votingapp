@@ -15,6 +15,12 @@ class HomeView(FormView):
         form.save()
         return redirect('poll', uid=form.poll.uid)
 
+    def get_context_data(self, **kwargs):
+        kwargs['popular'] = Poll.objects.annotate(
+            total_votes=Sum('choice__votes')
+        ).order_by('-total_votes')[:10]
+        return super().get_context_data(**kwargs)
+
 
 class PollView(View):
 

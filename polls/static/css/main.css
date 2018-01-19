@@ -107,6 +107,15 @@ main {
     border-top: 3px solid rgb(83, 83, 83);
 }
 
+.list-group-item-action {
+    background: #2b2b2b;
+}
+
+.list-group-item-action:hover {
+    background: #858585;
+    color: #303030;
+}
+
 @media (min-width: 48em) {
     .container {
         max-width: 46rem;

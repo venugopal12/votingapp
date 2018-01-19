@@ -6,13 +6,26 @@ from polls.forms import NewPollForm
 
 class HomeGETTest(TestCase):
 
-    def test_home_page_uses_home_template(self):
+    def test_uses_home_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
-    def test_home_page_uses_new_poll_form(self):
+    def test_uses_new_poll_form(self):
         response = self.client.get('/')
         self.assertIsInstance(response.context['form'], NewPollForm)
+
+    def test_compare_popular_polls(self):
+        polls = []
+        for _ in range(10):
+            new_poll = Poll.objects.create(text='Question')
+            for i in range(2):
+                choice = Choice.objects.create(text=str(i), poll=new_poll)
+                choice.votes = (12 - i) * 5  # we want i=0 to be the highest
+                choice.save()
+            polls.append(new_poll)
+        response = self.client.get('/')
+        response_popular = list(response.context['popular'])
+        self.assertListEqual(response_popular, polls)
 
 
 class HomePOSTTest(TestCase):
