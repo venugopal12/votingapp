@@ -162,15 +162,32 @@ class ResultsTest(TestCase):
             mock_pie().render_data_uri.return_value
         )
 
-    def test_passes_custom_choices_with_color(self):
+    def test_passes_custom_choices(self):
         poll = Poll.objects.create(text='The question we are asking')
         for i in range(5):
             Choice.objects.create(text=str(i), poll=poll)
         response = self.client.get(f'/poll/{poll.uid}/results')
         choices = response.context['poll'].choices
         self.assertIsNotNone(choices)
+
+    def test_passes_choices_with_color(self):
+        poll = Poll.objects.create(text='The question we are asking')
+        for i in range(5):
+            Choice.objects.create(text=str(i), poll=poll)
+        response = self.client.get(f'/poll/{poll.uid}/results')
+        choices = response.context['poll'].choices
         for choice in choices:
             self.assertIsNotNone(choice.color)
+
+    def test_choices_ordered_by_votes(self):
+        poll = Poll.objects.create(text='The question we are asking')
+        for i in range(5):
+            choice = Choice.objects.create(text=str(i), poll=poll)
+            choice.votes = i
+            choice.save()
+        choices = list(poll.choice_set.all())[::-1]
+        response = self.client.get(f'/poll/{poll.uid}/results')
+        self.assertEqual(list(response.context['poll'].choices), choices)
 
     def test_passes_in_total_votes(self):
         poll = Poll.objects.create(text='The question we are asking')

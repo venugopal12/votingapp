@@ -56,7 +56,7 @@ class ResultsView(View):
         ).get(uid=uid)
 
         pie_chart = Pie(style=self.custom_style)
-        choices = poll.choice_set.all()
+        choices = poll.choice_set.all().order_by('-votes')
         for i, choice in enumerate(choices):
             pie_chart.add(choice.text, choice.votes)
             choice.color = self.colors[i]
