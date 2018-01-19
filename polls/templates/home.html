@@ -32,10 +32,10 @@
     <h2 class="text-center">Popular Polls</h2>
     {% if popular %}
     {% for poll in popular %}
-        <a href="{% url 'poll' poll.uid %}" class="list-group-item list-group-item-action text-light">
+        <a href="{% url 'poll' poll.uid %}" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
                 <h4><span class="badge badge-info mr-2">{{ poll.total_votes }}</span>{{ poll.text }}</h4>
-                <small class="m-1 text-secondary">{{ poll.pub_date|timesince }}</small>
+                <small class="m-1">{{ poll.pub_date|timesince }}</small>
             </div>
         </a>
     {% endfor %}

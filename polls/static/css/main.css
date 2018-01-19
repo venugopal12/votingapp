@@ -109,6 +109,7 @@ main {
 
 .list-group-item-action {
     background: #2b2b2b;
+    color: #d4d4d4;
 }
 
 .list-group-item-action:hover {
