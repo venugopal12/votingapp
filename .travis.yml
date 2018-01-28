@@ -1,6 +1,11 @@
 language: python
 python:
   - "3.6"
+cache:
+  - pip
+  - venv
+services:
+  - postgresql
 env:
   - MOZ_HEADLESS=1
 addons:
@@ -12,6 +17,8 @@ before_install:
   - export PATH=$PATH:$PWD/geckodriver
 install:
   - pip install -r requirements/test.txt
+before_script:
+  - psql -c 'create database votingapp;' -U postgres
 script:
   - flake8 .
   - coverage run manage.py test

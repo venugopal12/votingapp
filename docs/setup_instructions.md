@@ -14,6 +14,7 @@ python3.6 -m venv venv
 ```
 
 ## Install packages with pip
+Run this when the requirements change
 ```
 # if you just want to run the project without tests
 pip install -r requirements/common.txt
@@ -23,9 +24,11 @@ pip install -r requirements/test.txt
 # to requirements/deploy.txt
 ```
 
-## Migrate database
+## Create and Migrate database
 ```
-votingsite$ python manage.py migrate
+# You will need to download postgresql based on your development platform
+votingsite$ psql -c 'create database votingapp' -U postgres
+votingsite$ python manage.py migrate  # do this anytime there are changes
 ```
 
 ## Download geckodriver and firefox
@@ -36,7 +39,10 @@ https://github.com/mozilla/geckodriver/releases
 (linux) Place in venv/bin folder
 ```
 
-## Create local config
-Copy the example file from the docs folder to the votingsite folder.
-
-Edit the file for your own personal settings.
+# Testing
+Run Django's test runner
+```
+votingsite$ python manage.py test
+votingsite$ python manage.py test functional_tests # only functionl tests
+votingsite$ python manage.py test polls # skip functional tests
+```
