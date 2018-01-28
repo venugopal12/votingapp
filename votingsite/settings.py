@@ -110,7 +110,6 @@ elif 'HEROKU' in os.environ:  # noqa
     }
 
 else:  # noqa
-    from votingsite import local_config
-    SECRET_KEY = local_config.APP_SECRET_KEY
-    DEBUG = local_config.APP_DEBUG
-    ALLOWED_HOSTS = local_config.APP_ALLOWED_HOSTS
+    SECRET_KEY = 'LOCAL_SECRET_KEY'
+    DEBUG = True
+    ALLOWED_HOSTS = []
