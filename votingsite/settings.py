@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -62,6 +63,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgres://postgres:@localhost:5432/votingapp'
+    )
+}
+
 # Load secrets and environment specific settings based on which
 # environment we are currently in
 # Note: The following is ignored by coverage reports.
@@ -69,13 +76,6 @@ if 'CI' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
     DEBUG = True
     ALLOWED_HOSTS = []
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
 
 elif 'HEROKU' in os.environ:  # noqa
     SECRET_KEY = os.environ['SECRET_KEY']
@@ -89,11 +89,6 @@ elif 'HEROKU' in os.environ:  # noqa
     SESSION_COOKIE_SECURE = True
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-    import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.config()
-    }
 
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
@@ -119,10 +114,3 @@ else:  # noqa
     SECRET_KEY = local_config.APP_SECRET_KEY
     DEBUG = local_config.APP_DEBUG
     ALLOWED_HOSTS = local_config.APP_ALLOWED_HOSTS
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
