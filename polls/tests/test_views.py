@@ -16,10 +16,10 @@ class HomeGETTest(TestCase):
 
     def test_compare_popular_polls(self):
         polls = []
-        for _ in range(10):
-            new_poll = Poll.objects.create(text='Question')
-            for i in range(2):
-                choice = Choice.objects.create(text=str(i), poll=new_poll)
+        for i in range(10):
+            new_poll = Poll.objects.create(text=f'Question {i}')
+            for j in range(2):
+                choice = Choice.objects.create(text=str(j), poll=new_poll)
                 choice.votes = (12 - i) * 5  # we want i=0 to be the highest
                 choice.save()
             polls.append(new_poll)
