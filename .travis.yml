@@ -21,6 +21,6 @@ before_script:
   - psql -c 'create database votingapp;' -U postgres
 script:
   - coverage run manage.py test
-  - coverage xml
 after_success:
+  - coverage xml
   - python-codacy-coverage -r coverage.xml

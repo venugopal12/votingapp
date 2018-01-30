@@ -121,10 +121,6 @@ include-naming-hint=no
 # Naming style matching correct inline iteration names
 inlinevar-naming-style=any
 
-# Regular expression matching correct inline iteration names. Overrides
-# inlinevar-naming-style
-#inlinevar-rgx=
-
 # Naming style matching correct method names
 method-naming-style=snake_case
 
@@ -320,7 +316,7 @@ max-bool-expr=5
 max-branches=12
 
 # Maximum number of locals for function / method body
-max-locals=15
+max-locals=16
 
 # Maximum number of parents for a class (see R0901).
 max-parents=7
