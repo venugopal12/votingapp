@@ -15,6 +15,6 @@ Follow the [Setup instructions here](docs/setup_instructions.md)
 | [GitHub](https://github.com/miniscruff/votingapp) | Git source control management |
 | [Heroku](https://dashboard.heroku.com/pipelines/35929301-0ed9-46a7-b52a-e91c8e59d8db) _(Requires Auth)_ | Server hosting platform as a service (PaaS) includes SSL. |
 | [PyUp](https://pyup.io/account/repos/github/miniscruff/votingapp/) | Python dependency tracker and security tool. |
-| [SideCI](https://sideci.com/gh/113536169/news_feed) _(Requries Auth)_ | Static code analyzer for many langauges (using python and css) as well as a spell checker |
+| [SideCI](https://sideci.com/gh/113536169/news_feed) _(Requires Auth)_ | Static code analyzer for many languages (using python and css) as well as a spell checker |
 | [Slack](https://minivotes.slack.com) | Dev ops and communication, although it was setup just for fun. |
 | [Travis CI](https://www.travis-ci.org/miniscruff/votingapp) | Continuous integration server that runs the automated test suite as well as code coverage. |
