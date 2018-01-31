@@ -12,7 +12,7 @@ class NewPollTest(TestCase):
 
     def test_save_creates_poll_and_choices(self):
         data = {
-            'text': 'question text_Intentionally long line to fail flake8',
+            'text': 'question text',
             'choice_1': 'A',
             'choice_2': 'B'
         }
@@ -21,7 +21,7 @@ class NewPollTest(TestCase):
         form.save()
 
         self.assertEqual(form.poll, Poll.objects.first())
-        self.assertEqual(Poll.objects.first().text, 'question text_Intentionally long line to fail flake8')
+        self.assertEqual(Poll.objects.first().text, 'question text')
         self.assertEqual(Choice.objects.count(), 2)
         self.assertEqual(Choice.objects.first().text, 'A')
 
