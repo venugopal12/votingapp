@@ -1,3 +1,5 @@
 component_depth: 1
-exclude:
-  - /votingsite/settings\.py
+languages:
+  - python
+exclude: 
+  - /votingsite/settings\.py 
