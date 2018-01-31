@@ -1,25 +1,30 @@
 language: python
 python:
-  - "3.6"
+- '3.6'
 cache:
-  - pip
-  - venv
+- pip
+- venv
 services:
-  - postgresql
+- postgresql
 env:
-  - MOZ_HEADLESS=1
+- MOZ_HEADLESS=1
 addons:
   firefox: latest
 before_install:
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.19.1-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
+- wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
+- mkdir geckodriver
+- tar -xzf geckodriver-v0.19.1-linux64.tar.gz -C geckodriver
+- export PATH=$PATH:$PWD/geckodriver
 install:
-  - pip install -r requirements/test.txt
+- pip install -r requirements/test.txt
 before_script:
-  - psql -c 'create database votingapp;' -U postgres
+- psql -c 'create database votingapp;' -U postgres
 script:
-  - coverage run manage.py test
+- coverage run manage.py test
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: b/XEf56cSgjcoaOyjBp5XzImB+tGRoEDeKF1/UD9h0HVd4URDQQY51a/QuSS4so7T/abmvJjhauEMDuPTfXf+lA+g8EvJarYPKv7QXdUA6t7iHy+5emCwxkfECawRfJT2wur2o5giMXN42i8MHTe8GyBVzrjVLyEYm8zPeDEDA0RuUbn0AE/8mcrmKsH8W/zcPRnLp4GtWkI+ToJh4nMJsdOzN6a+hJeEsY/0al6aDZ+a46VImKXzOMqEFQXDBpCTxxVPS5VcqukwjE0gfPAP/nJhdUWaF9gJpEH3S7PQ7J5sRiRys86o6msrOnwMBQfDi6l8vxMgBVa1POxlNBsiSfHUnWjmH++w2vSDZjcDD+CDIoymbwxQRsCYIXJ4cGsMd0wjDAsAvU/kFO06Yw4XBHftMDzB8lvebvV/yYKCtAKL8PT9vzZcbeg+Th5JjIWZJK1UXPb0xeQiApcD6iiId34kG/FLeL+d2qljDovZ+M2FFDIOCCVV6yqLeQUP5aFzFQ8y+FV0yjd9etnH5lN6pqyufMCxLKN7e1ySkWuHm7VrwFVvYreDNVGj/LNh7awM8B13GhdVbXW9VXZLm6j7Rz8gpYJ0ngfwePESGwFUFvYJ4c6dO3S9V15WdzVQnL5J9r/L50Jm5W2jrP1qc0j20TaU8WjR5sDqh1H77bQ1m8=
