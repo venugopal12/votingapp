@@ -1,3 +1,3 @@
 component_depth: 1
 exclude:
-  - votingsite/settings.py
+  - votingsite/settings\.py
