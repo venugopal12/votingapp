@@ -1,0 +1,12 @@
+linter:
+  misspell:
+    options:
+      locale: US
+
+  flake8:
+    version: 3
+
+  stylelint:
+    root_dir: 'polls/static/css'
+    options:
+      glob: '**/*.{css,scss}'
