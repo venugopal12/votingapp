@@ -22,5 +22,4 @@ before_script:
 script:
   - coverage run manage.py test
 after_success:
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
+  - bash <(curl -s https://codecov.io/bash)

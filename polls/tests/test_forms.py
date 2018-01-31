@@ -12,7 +12,7 @@ class NewPollTest(TestCase):
 
     def test_save_creates_poll_and_choices(self):
         data = {
-            'text': 'question text',
+            'text': 'question text_Intentionally long line to fail flake8',
             'choice_1': 'A',
             'choice_2': 'B'
         }
