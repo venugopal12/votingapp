@@ -12,4 +12,4 @@ htmlcov
 
 # ignore all log files
 *.log
-\.coverage
+.coverage
