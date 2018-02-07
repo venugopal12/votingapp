@@ -34,7 +34,7 @@ class PollAPITest(APITestCase):
         poll = Poll.objects.create(text='My poll text')
         choice_0 = Choice.objects.create(text='First', poll=poll, votes=5)
         choice_1 = Choice.objects.create(text='Second', poll=poll, votes=13)
-        response = self.client.get(f'/api/poll/{poll.uid}')
+        response = self.client.get(f'/api/v1/poll/{poll.uid}')
         self.assertDictEqual(response.data, {
             'id': poll.id,
             'text': 'My poll text',
