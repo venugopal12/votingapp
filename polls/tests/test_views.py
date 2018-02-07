@@ -188,8 +188,8 @@ class ResultsTest(TestCase):
         for i in range(5):
             Choice.objects.create(text=str(i), poll=poll)
         response = self.client.get(f'/poll/{poll.uid}/results')
-        choices = response.context['poll'].choices
-        for choice in choices:
+        color_choices = response.context['poll'].color_choices
+        for choice in color_choices:
             self.assertIsNotNone(choice.color)
 
     def test_choices_ordered_by_votes(self):
@@ -198,9 +198,11 @@ class ResultsTest(TestCase):
             choice = Choice.objects.create(text=str(i), poll=poll)
             choice.votes = i
             choice.save()
-        choices = list(poll.choice_set.all())[::-1]
         response = self.client.get(f'/poll/{poll.uid}/results')
-        self.assertEqual(list(response.context['poll'].choices), choices)
+        self.assertEqual(
+            [x.votes for x in response.context['poll'].color_choices],
+            [4, 3, 2, 1, 0]
+        )
 
     def test_passes_in_total_votes(self):
         poll = Poll.objects.create(text='The question we are asking')

@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'polls',
 ]
 
@@ -67,6 +68,13 @@ DATABASES = {
     'default': dj_database_url.config(
         default='postgres://postgres:@localhost:5432/votingapp'
     )
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'UNAUTHENTICATED_USER': None,
 }
 
 # Load secrets and environment specific settings based on which

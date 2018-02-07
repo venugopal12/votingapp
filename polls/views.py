@@ -3,8 +3,11 @@ from django.shortcuts import render, redirect
 from django.db.models import Sum
 from pygal import Pie
 from pygal.style import Style
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from polls.models import Poll, Choice
 from polls.forms import NewPollForm
+from polls.serializers import PollSerializer
 
 
 class HomeView(FormView):
@@ -17,7 +20,7 @@ class HomeView(FormView):
 
     def get_context_data(self, **kwargs):
         kwargs['popular'] = Poll.objects.annotate(
-            total_votes=Sum('choice__votes')
+            total_votes=Sum('choices__votes')
         ).order_by('-total_votes')[:10]
         return super().get_context_data(**kwargs)
 
@@ -58,18 +61,26 @@ class ResultsView(View):
 
     def get(self, request, uid):
         poll = Poll.objects.annotate(
-            total_votes=Sum('choice__votes')
+            total_votes=Sum('choices__votes')
         ).get(uid=uid)
 
         pie_chart = Pie(style=self.custom_style)
-        choices = poll.choice_set.all().order_by('-votes')
+        choices = poll.choices.all().order_by('-votes')
         for i, choice in enumerate(choices):
             pie_chart.add(choice.text, choice.votes)
             choice.color = self.colors[i]
 
-        poll.choices = choices
+        poll.color_choices = choices
 
         return render(request, 'results.html', {
             'poll': poll,
             'chart': pie_chart.render_data_uri()
         })
+
+
+class PollAPIView(APIView):
+
+    def get(self, request, uid, format=None):
+        poll = Poll.objects.get(uid=uid)
+        serializer = PollSerializer(poll)
+        return Response(serializer.data)

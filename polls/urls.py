@@ -17,4 +17,5 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('poll/<uid>', views.PollView.as_view(), name='poll'),
     path('poll/<uid>/results', views.ResultsView.as_view(), name='results'),
+    path('api/v1/poll/<uid>', views.PollAPIView.as_view(), name='apipoll'),
 ]

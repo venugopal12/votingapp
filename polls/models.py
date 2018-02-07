@@ -16,7 +16,11 @@ class Poll(models.Model):
 
 
 class Choice(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    poll = models.ForeignKey(
+        Poll,
+        related_name='choices',
+        on_delete=models.CASCADE
+    )
     text = models.CharField(blank=False, max_length=200)
     votes = models.IntegerField(default=0)
 

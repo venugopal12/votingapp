@@ -6,7 +6,7 @@
 <section class="content">
     <h1 name="poll-text" class="text-center">{{ poll.text }}</h1>
     <form method="POST" action="{% url 'poll' poll.uid %}">
-        {% for choice in poll.choice_set.all %}
+        {% for choice in poll.choices.all %}
         <div class="vote-option">
             <input id="{{ choice.text }}-id" type="radio" name="choice_id" value="{{ choice.id }}" {% if forloop.first %}checked{% endif %}>
             <label for="{{ choice.text }}-id" name="choice_label">{{ choice.text }}</label>
