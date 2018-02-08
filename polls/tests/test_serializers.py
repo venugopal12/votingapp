@@ -30,30 +30,6 @@ class PollAPITest(APITestCase):
             ]
         })
 
-    def test_can_get_poll_data(self):
-        poll = Poll.objects.create(text='My poll text')
-        choice_0 = Choice.objects.create(text='First', poll=poll, votes=5)
-        choice_1 = Choice.objects.create(text='Second', poll=poll, votes=13)
-        response = self.client.get(f'/api/v1/poll/{poll.uid}')
-        self.assertDictEqual(response.data, {
-            'id': poll.id,
-            'text': 'My poll text',
-            'pub_date': poll.pub_date.astimezone().isoformat(),
-            'uid': poll.uid,
-            'choices': [
-                OrderedDict(
-                    id=choice_0.id,
-                    text=choice_0.text,
-                    votes=choice_0.votes,
-                ),
-                OrderedDict(
-                    id=choice_1.id,
-                    text=choice_1.text,
-                    votes=choice_1.votes
-                )
-            ]
-        })
-
 
 class ChoiceAPITest(APITestCase):
 
