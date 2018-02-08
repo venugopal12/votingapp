@@ -4,7 +4,7 @@ from polls.models import Poll, Choice
 from polls.forms import NewPollForm
 
 
-class HomeGETTest(TestCase):
+class HomeGetTest(TestCase):
 
     def test_uses_home_template(self):
         response = self.client.get('/')
@@ -28,7 +28,7 @@ class HomeGETTest(TestCase):
         self.assertListEqual(response_popular, polls)
 
 
-class HomePOSTTest(TestCase):
+class HomePostTest(TestCase):
 
     def test_creates_poll(self):
         self.client.post('/', {
@@ -55,7 +55,7 @@ class HomePOSTTest(TestCase):
         self.assertRedirects(response, f'/poll/{new_poll.uid}')
 
 
-class ViewPollGETTest(TestCase):
+class ViewPollGetTest(TestCase):
 
     def test_uses_poll_template(self):
         poll = Poll.objects.create(text='A')
@@ -100,7 +100,7 @@ class ViewPollGETTest(TestCase):
         self.assertEqual(response.context['poll'], poll)
 
 
-class PollPOSTTest(TestCase):
+class PollPostTest(TestCase):
 
     def test_redirects_to_results_page(self):
         poll = Poll.objects.create(text='A')
