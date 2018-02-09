@@ -7,6 +7,7 @@ class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
         fields = ('id', 'text', 'votes')
+        read_only_fields = ('votes',)
 
 
 class PollSerializer(serializers.ModelSerializer):
@@ -15,6 +16,12 @@ class PollSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poll
         fields = ('id', 'uid', 'text', 'pub_date', 'choices')
+        read_only_fields = ('id', 'uid', 'pub_date')
+
+    def validate(self, data):
+        if len(data['choices']) < 2:
+            raise serializers.ValidationError('Need at least two choices')
+        return data
 
     def create(self, validated_data):
         choices_data = validated_data.pop('choices')

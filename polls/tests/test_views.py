@@ -1,8 +1,10 @@
 from collections import OrderedDict
 from django.test import TestCase
 from unittest.mock import patch
+from rest_framework import status
 from polls.models import Poll, Choice
 from polls.forms import NewPollForm
+import json
 
 
 class HomeGetTest(TestCase):
@@ -216,7 +218,36 @@ class ResultsTest(TestCase):
 
 
 class PollsListAPITest(TestCase):
-    pass
+
+    def test_can_create_poll(self):
+        json_data = json.dumps({
+            'text': 'My poll',
+            'choices': [
+                {'text': 'Choice A'},
+                {'text': 'Choice B'},
+            ]
+        })
+        response = self.client.post(
+            f'/api/v1/polls',
+            data=json_data,
+            content_type='application/json'
+        )
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+
+        self.assertEqual(1, Poll.objects.count())
+        poll = Poll.objects.first()
+        self.assertEqual('My poll', poll.text)
+
+        self.assertEqual(2, Choice.objects.count())
+        choice = Choice.objects.first()
+        self.assertEqual('Choice A', choice.text)
+        self.assertEqual(poll, choice.poll)
+
+    def test_invalid_data_raises_400(self):
+        response = self.client.post(f'/api/v1/polls', data={
+            'text': 'My poll',
+        })
+        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
 
 class PollDetailAPITest(TestCase):

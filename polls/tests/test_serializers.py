@@ -34,14 +34,8 @@ class PollAPITest(APITestCase):
         serializer = PollSerializer(data={
             'text': 'My nested poll',
             'choices': [
-                {
-                    'text': 'Choice A',
-                    'votes': 5
-                },
-                {
-                    'text': 'Choice B',
-                    'votes': 15
-                }
+                {'text': 'Choice A'},
+                {'text': 'Choice B'},
             ]
         })
         self.assertTrue(serializer.is_valid())
@@ -55,17 +49,17 @@ class PollAPITest(APITestCase):
         choice = Choice.objects.first()
         self.assertEqual(choice.poll, poll)
         self.assertEqual(choice.text, 'Choice A')
-        self.assertEqual(choice.votes, 5)
 
-    # test - specifying votes > 0 when adding a poll results in an error
-    # test - including 0 or 1 choices results in an error
-    # def test_can_create_poll(self):
-    #     serializer = PollSerializer(data={'text': 'My poll text'})
-    #     self.assertTrue(serializer.is_valid())
-    #     serializer.save()
-    #     self.assertEqual(1, Poll.objects.count())
-    #     poll = Poll.objects.first()
-    #     self.assertEqual(poll.text, 'My poll text')
+    def test_invalid_poll_with_no_choices(self):
+        serializer = PollSerializer(data={'text': 'My poll text'})
+        self.assertFalse(serializer.is_valid())
+
+    def test_invalid_poll_with_one_choice(self):
+        serializer = PollSerializer(data={
+            'text': 'My nested poll',
+            'choices': [{'text': 'Choice A'}]
+        })
+        self.assertFalse(serializer.is_valid())
 
 
 class ChoiceAPITest(APITestCase):
@@ -77,13 +71,22 @@ class ChoiceAPITest(APITestCase):
         self.assertEqual(serializer.data, {
             'id': choice.id,
             'text': 'My choice',
+            'votes': 10,
+        })
+
+    def test_votes_is_read_only(self):
+        serializer = ChoiceSerializer(data={
+            'text': 'Dummy Choice',
             'votes': 10
         })
+        serializer.is_valid()
+        poll = Poll.objects.create(text='Dummy poll')
+        serializer.save(poll=poll)
+        self.assertEqual(0, Choice.objects.first().votes)
 
     def test_can_create_choice(self):
         serializer = ChoiceSerializer(data={
-            'text': 'Dummy Choice',
-            'votes': 5,
+            'text': 'Dummy Choice'
         })
         self.assertTrue(serializer.is_valid())
 
@@ -94,4 +97,4 @@ class ChoiceAPITest(APITestCase):
         choice = Choice.objects.first()
         self.assertEqual(choice.poll, poll)
         self.assertEqual(choice.text, 'Dummy Choice')
-        self.assertEqual(choice.votes, 5)
+        self.assertEqual(choice.votes, 0)
