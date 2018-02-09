@@ -96,7 +96,7 @@ class PollsListAPIView(APIView):
 
 class PollDetailAPIView(APIView):
 
-    def get(self, request, uid, format=None):
+    def get(self, request, uid):
         poll = Poll.objects.get(uid=uid)
         serializer = PollSerializer(poll)
         return Response(serializer.data)
