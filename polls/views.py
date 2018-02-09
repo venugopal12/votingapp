@@ -81,7 +81,10 @@ class ResultsView(View):
 
 class PollsListAPIView(APIView):
 
-    # def get, get all the polls
+    def get(self, request):
+        polls = Poll.objects.all()
+        serializer = PollSerializer(polls, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         serializer = PollSerializer(data=request.data)

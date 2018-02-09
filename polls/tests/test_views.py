@@ -249,6 +249,55 @@ class PollsListAPITest(TestCase):
         })
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
+    def test_can_get_existing_polls(self):
+        poll_0 = Poll.objects.create(text='My first poll')
+        choice_0 = Choice.objects.create(text='First', poll=poll_0, votes=2)
+        choice_1 = Choice.objects.create(text='Second', poll=poll_0, votes=5)
+
+        poll_1 = Poll.objects.create(text='My second poll')
+        choice_2 = Choice.objects.create(text='Third', poll=poll_1, votes=21)
+        choice_3 = Choice.objects.create(text='Fourth', poll=poll_1, votes=8)
+
+        response = self.client.get(f'/api/v1/polls')
+        self.assertEqual(response.data, [
+            OrderedDict(
+                id=poll_0.id,
+                uid=poll_0.uid,
+                text=poll_0.text,
+                pub_date=poll_0.pub_date.astimezone().isoformat(),
+                choices=[
+                    OrderedDict(
+                        id=choice_0.id,
+                        text=choice_0.text,
+                        votes=choice_0.votes,
+                    ),
+                    OrderedDict(
+                        id=choice_1.id,
+                        text=choice_1.text,
+                        votes=choice_1.votes
+                    )
+                ]
+            ),
+            OrderedDict(
+                id=poll_1.id,
+                uid=poll_1.uid,
+                text=poll_1.text,
+                pub_date=poll_1.pub_date.astimezone().isoformat(),
+                choices=[
+                    OrderedDict(
+                        id=choice_2.id,
+                        text=choice_2.text,
+                        votes=choice_2.votes,
+                    ),
+                    OrderedDict(
+                        id=choice_3.id,
+                        text=choice_3.text,
+                        votes=choice_3.votes
+                    )
+                ]
+            )
+        ])
+
 
 class PollDetailAPITest(TestCase):
 
