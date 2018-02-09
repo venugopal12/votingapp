@@ -215,7 +215,11 @@ class ResultsTest(TestCase):
         self.assertEqual(response.context['poll'].total_votes, 10)
 
 
-class PollAPITest(TestCase):
+class PollsListAPITest(TestCase):
+    pass
+
+
+class PollDetailAPITest(TestCase):
 
     def test_can_get_poll_data(self):
         poll = Poll.objects.create(text='My poll text')

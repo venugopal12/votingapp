@@ -5,6 +5,7 @@ from pygal import Pie
 from pygal.style import Style
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from polls.models import Poll, Choice
 from polls.forms import NewPollForm
 from polls.serializers import PollSerializer
@@ -78,7 +79,17 @@ class ResultsView(View):
         })
 
 
-class PollAPIView(APIView):
+class PollsListAPIView(APIView):
+
+    def post(self, request):
+        serializer = PollSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PollDetailAPIView(APIView):
 
     def get(self, request, uid, format=None):
         poll = Poll.objects.get(uid=uid)
