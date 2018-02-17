@@ -22,14 +22,16 @@ from polls import urls as polls_urls
 urlpatterns = [
     path('', include(polls_urls)),
     path(
-        'favicon.ico', RedirectView.as_view(
+        'favicon.ico',
+        RedirectView.as_view(
             url=staticfiles_storage.url('favicon.ico'),
             permanent=False
         ),
         name='favicon'
     ),
     path(
-        'browserconfig.xml', RedirectView.as_view(
+        'browserconfig.xml',
+        RedirectView.as_view(
             url=staticfiles_storage.url('browserconfig.xml'),
             permanent=False
         ),
