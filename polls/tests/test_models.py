@@ -33,7 +33,7 @@ class ChoiceModelTest(TestCase):
     def test_choice_is_related_to_poll(self):
         poll = Poll.objects.create(text='text')
         choice = Choice.objects.create(poll=poll, text='')
-        self.assertIn(choice, poll.choice_set.all())
+        self.assertIn(choice, poll.choices.all())
 
     def test_requires_poll(self):
         choice = Choice(text='text')

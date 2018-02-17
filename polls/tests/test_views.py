@@ -1,10 +1,13 @@
+from collections import OrderedDict
 from django.test import TestCase
 from unittest.mock import patch
+from rest_framework import status
 from polls.models import Poll, Choice
 from polls.forms import NewPollForm
+import json
 
 
-class HomeGETTest(TestCase):
+class HomeGetTest(TestCase):
 
     def test_uses_home_template(self):
         response = self.client.get('/')
@@ -28,7 +31,7 @@ class HomeGETTest(TestCase):
         self.assertListEqual(response_popular, polls)
 
 
-class HomePOSTTest(TestCase):
+class HomePostTest(TestCase):
 
     def test_creates_poll(self):
         self.client.post('/', {
@@ -55,7 +58,7 @@ class HomePOSTTest(TestCase):
         self.assertRedirects(response, f'/poll/{new_poll.uid}')
 
 
-class ViewPollGETTest(TestCase):
+class ViewPollGetTest(TestCase):
 
     def test_uses_poll_template(self):
         poll = Poll.objects.create(text='A')
@@ -100,7 +103,7 @@ class ViewPollGETTest(TestCase):
         self.assertEqual(response.context['poll'], poll)
 
 
-class PollPOSTTest(TestCase):
+class PollPostTest(TestCase):
 
     def test_redirects_to_results_page(self):
         poll = Poll.objects.create(text='A')
@@ -188,8 +191,8 @@ class ResultsTest(TestCase):
         for i in range(5):
             Choice.objects.create(text=str(i), poll=poll)
         response = self.client.get(f'/poll/{poll.uid}/results')
-        choices = response.context['poll'].choices
-        for choice in choices:
+        color_choices = response.context['poll'].color_choices
+        for choice in color_choices:
             self.assertIsNotNone(choice.color)
 
     def test_choices_ordered_by_votes(self):
@@ -198,9 +201,11 @@ class ResultsTest(TestCase):
             choice = Choice.objects.create(text=str(i), poll=poll)
             choice.votes = i
             choice.save()
-        choices = list(poll.choice_set.all())[::-1]
         response = self.client.get(f'/poll/{poll.uid}/results')
-        self.assertEqual(list(response.context['poll'].choices), choices)
+        self.assertEqual(
+            [x.votes for x in response.context['poll'].color_choices],
+            [4, 3, 2, 1, 0]
+        )
 
     def test_passes_in_total_votes(self):
         poll = Poll.objects.create(text='The question we are asking')
@@ -210,3 +215,112 @@ class ResultsTest(TestCase):
             choice.save()
         response = self.client.get(f'/poll/{poll.uid}/results')
         self.assertEqual(response.context['poll'].total_votes, 10)
+
+
+class PollsListAPITest(TestCase):
+
+    def test_can_create_poll(self):
+        json_data = json.dumps({
+            'text': 'My poll',
+            'choices': [
+                {'text': 'Choice A'},
+                {'text': 'Choice B'},
+            ]
+        })
+        response = self.client.post(
+            f'/api/v1/polls',
+            data=json_data,
+            content_type='application/json'
+        )
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+
+        self.assertEqual(1, Poll.objects.count())
+        poll = Poll.objects.first()
+        self.assertEqual('My poll', poll.text)
+
+        self.assertEqual(2, Choice.objects.count())
+        choice = Choice.objects.first()
+        self.assertEqual('Choice A', choice.text)
+        self.assertEqual(poll, choice.poll)
+
+    def test_invalid_data_raises_400(self):
+        response = self.client.post(f'/api/v1/polls', data={
+            'text': 'My poll',
+        })
+        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
+
+    def test_can_get_existing_polls(self):
+        poll_0 = Poll.objects.create(text='My first poll')
+        choice_0 = Choice.objects.create(text='First', poll=poll_0, votes=2)
+        choice_1 = Choice.objects.create(text='Second', poll=poll_0, votes=5)
+
+        poll_1 = Poll.objects.create(text='My second poll')
+        choice_2 = Choice.objects.create(text='Third', poll=poll_1, votes=21)
+        choice_3 = Choice.objects.create(text='Fourth', poll=poll_1, votes=8)
+
+        response = self.client.get(f'/api/v1/polls')
+        self.assertEqual(response.data, [
+            OrderedDict(
+                id=poll_0.id,
+                uid=poll_0.uid,
+                text=poll_0.text,
+                pub_date=poll_0.pub_date.astimezone().isoformat(),
+                choices=[
+                    OrderedDict(
+                        id=choice_0.id,
+                        text=choice_0.text,
+                        votes=choice_0.votes,
+                    ),
+                    OrderedDict(
+                        id=choice_1.id,
+                        text=choice_1.text,
+                        votes=choice_1.votes
+                    )
+                ]
+            ),
+            OrderedDict(
+                id=poll_1.id,
+                uid=poll_1.uid,
+                text=poll_1.text,
+                pub_date=poll_1.pub_date.astimezone().isoformat(),
+                choices=[
+                    OrderedDict(
+                        id=choice_2.id,
+                        text=choice_2.text,
+                        votes=choice_2.votes,
+                    ),
+                    OrderedDict(
+                        id=choice_3.id,
+                        text=choice_3.text,
+                        votes=choice_3.votes
+                    )
+                ]
+            )
+        ])
+
+
+class PollDetailAPITest(TestCase):
+
+    def test_can_get_poll_data(self):
+        poll = Poll.objects.create(text='My poll text')
+        choice_0 = Choice.objects.create(text='First', poll=poll, votes=5)
+        choice_1 = Choice.objects.create(text='Second', poll=poll, votes=13)
+        response = self.client.get(f'/api/v1/poll/{poll.uid}')
+        self.assertDictEqual(response.data, {
+            'id': poll.id,
+            'text': poll.text,
+            'pub_date': poll.pub_date.astimezone().isoformat(),
+            'uid': poll.uid,
+            'choices': [
+                OrderedDict(
+                    id=choice_0.id,
+                    text=choice_0.text,
+                    votes=choice_0.votes,
+                ),
+                OrderedDict(
+                    id=choice_1.id,
+                    text=choice_1.text,
+                    votes=choice_1.votes
+                )
+            ]
+        })
