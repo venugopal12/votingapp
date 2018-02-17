@@ -6,8 +6,6 @@ venv
 .vagrant
 
 private_notes.md
-votingsite/local_config.py
-db.sqlite3
 htmlcov
 
 # ignore all log files
