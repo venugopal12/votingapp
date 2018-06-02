@@ -4,6 +4,8 @@
 
 Simple and easy to use voting app using the django framework and python3.
 
+### No longer hosted on heroku, feel free to start your own version.
+
 # Local Setup
 Follow the [Setup instructions here](docs/setup_instructions.md)
 
