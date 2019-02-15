@@ -3,4 +3,4 @@ Django==2.1.7
 psycopg2==2.7.6.1
 djangorestframework==3.9.0
 pygal==2.4.0
-pytz==2018.7
+pytz==2018.9
